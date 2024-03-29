@@ -1,0 +1,162 @@
+ /* Reset CSS */
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fonts */
+@import url("https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400..700&family=Madimi+One&display=swap");
+
+/* General Styles */
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* Container Styles */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #2b2d42;
+}
+
+.content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 960px;
+    height: 75%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+
+.content::before {
+    position: absolute;
+    content: "";
+    background-color: #fee440;
+    width: 40%;
+    height: 100%;
+    border-radius: 10px 0px 0px 10px;
+    color: #2b2d42;
+    animation: slidein 1s forwards;
+}
+
+/* Form Container Styles */
+.first-content {
+    display: flex;
+    z-index: 10;
+}
+
+.first-colunn {
+    text-align: center;
+    width: 40%;
+}
+
+/* Title Styles */
+.tittle {
+    font-size: 30px;
+    font-weight: 700;
+    text-transform: capitalize;
+    color: #2b2d42;
+}
+
+/* Form Styles */
+.icon-modify {
+    color: rgba(16, 199, 52, 0.6);
+    padding: 0 10px;
+}
+
+.form {
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+}
+
+.form input {
+    height: 35px;
+    border: none;
+    background-color: #edf2f4;
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 10px;
+    text-transform: capitalize;
+    margin: 35px 10px 0; /* Adjust margin to create separation */
+    border: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #124076;
+    color: #87A922;
+}
+
+.btn-primary {
+    background-color: #F5E8DD;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #9BCF53;
+    color:#15F5BA;  
+}
+
+/* Input Styles */
+input[type="text"] {
+    width: 200px;
+    height: 40px;
+    padding: 30px;
+}
+
+input[type="email"]{
+    width: 200px;
+    height: 40px;
+    padding: 30px;
+}
+input[type="password"]{
+    width: 200px;
+    height: 40px;
+    padding: 30px;
+    
+}
+
+/* Social Media Icon Styles */
+.social-media {
+    width: 100%;
+    margin: 0 10px; /* Add margin to create separation */
+    height: auto;
+    max-width: 10%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Keyframe Animations */
+@keyframes slidein {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+button[type="submit"]{
+    display: block;
+    font-size: small;
+    color: #652;
+    background-color: yellow;
+}
+
