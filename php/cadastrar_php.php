@@ -1,5 +1,7 @@
 <?php include("../Conexão.php");
 
+session_start();
+
 $nome = $_POST["txtNome"];
 $email = $_POST["txtEmail"];
 $senha = $_POST["txtSenha"];
@@ -8,8 +10,9 @@ $sql = "SELECT * FROM usuarios WHERE email = '$email'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo  "<script>alert('Email ja cadastrado);</script>";
+    $_SESSION["error"] = "Email já cadastrado.";
     header("Location: ../cadastrar.php");
+    exit;
 } else {
     $sql = "INSERT INTO usuarios (email, senha, nome_user)
             VALUES ('$email', '$senha', '$nome')";
