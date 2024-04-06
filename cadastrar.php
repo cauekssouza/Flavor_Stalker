@@ -17,10 +17,10 @@
                     <h2 class="tittle"><i class="fa-solid fa-right-to-bracket"></i>Cadastro</h2>
                     <i class="fa-solid fa-heart"></i>
                     <div class="form">
-                        <form method="post" id="cadastroForm" onsubmit="entrar(); return false;">
-                            <input type="text" name="nome" id="nome" placeholder="Nome do Usuário" pattern="^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)*$" title="Digite um nome válido" required>
-                            <input type="email" name="email" id="email" placeholder="Digite seu Email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" title="Digite um email válido" required>
-                            <input type="password" name="senha" id="senha" placeholder="Crie uma Senha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um número, uma letra minúscula e uma letra maiúscula" required>
+                        <form method="POST" id="cadastroForm" action="php/cadastrar_php.php" onsubmit="entrar(); return false;">
+                            <input type="text" name="txtNome" id="nome" placeholder="Nome do Usuário" pattern="^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)*$" title="Digite um nome válido" required>
+                            <input type="email" name="txtEmail" id="email" placeholder="Digite seu Email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" title="Digite um email válido" required>
+                            <input type="password" name="txtSenha" id="senha" placeholder="Crie uma Senha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um número, uma letra minúscula e uma letra maiúscula" required>
                             <button type="submit" id="idcadastrar" name="cadastrar">Cadastrar</button>
                         </form>
                     </div>
