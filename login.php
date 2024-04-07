@@ -34,12 +34,6 @@
                         <div class="btn">
                             <a href="cadastrar.php" class="btn-primary">Cadastre-se</a>
                         </div>
-
-                        <!-- botao temporario só pra mostrar -->
-                        <div class="btn">
-                            <a href="php/users_list.php" class="btn-primary">Lista de usuários</a>
-                        </div>
-
                     </div>
                     <div class="second-colunn">
                         <p></p>

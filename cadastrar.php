@@ -35,12 +35,6 @@
                             <button type="submit" id="idcadastrar" name="cadastrar">Cadastrar</button>
                         </form>
                     </div>
-
-                    <!-- botao temporario só pra mostrar -->
-                    <div class="btn">
-                        <a href="php/users_list.php" class="btn-primary">Lista de usuários</a>
-                    </div>
-
                     <button class="btn-primary" onclick="window.location.href='login.php'">Voltar</button>
                 </div>
             </div>
