@@ -66,7 +66,7 @@
 							if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {  // se o usuário estiver logado
 								$user = $_SESSION['email'];
 							?>
-								<li class="btn btn-primary"><a href="login.php">Logado</a></li>
+								<li class="btn btn-primary"><a href="php/users_list.php">Logado</a></li>
 
 							<?php } else { ?>
                     			<li class="btn btn-primary"><a href="login.php">Entrar</a></li>
