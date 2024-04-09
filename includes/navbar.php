@@ -1,5 +1,3 @@
-<?php $currentPage = basename($_SERVER['SCRIPT_NAME']); ?> <!-- pega o nome do arquivo atual -->
-
 <!DOCTYPE HTML>
 <html>
 
@@ -49,6 +47,7 @@
 					</div>
 					<div class="col-xs-12 text-center menu-1 menu-wrap">
 						<ul>
+							<?php $currentPage = basename($_SERVER['SCRIPT_NAME']); ?> <!-- pega o nome do arquivo atual -->
 							<!-- analisa qual é a página atual e adiciona a classe active -->
 							<li <?php if ($currentPage === 'index.php') : ?>class="active" <?php endif; ?>>
 								<a href="index.php">Home</a>
