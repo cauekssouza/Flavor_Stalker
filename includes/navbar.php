@@ -59,9 +59,19 @@
 								<a href="about.php">About</a>
 							</li>
 							<li <?php if ($currentPage === 'contato.php') : ?>class="active" <?php endif; ?>>
-								<a href="contato.php">Contato</a>
+								<a href="contato.php">Contato</a>s
 							</li>
-							<li class="btn btn-primary"><a href="login.php">Entrar</a></li>
+							<?php
+							session_start();
+							if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {  // se o usuário estiver logado
+								$user = $_SESSION['email'];
+							?>
+								<li class="btn btn-primary"><a href="login.php">Logado</a></li>
+
+							<?php } else { ?>
+                    			<li class="btn btn-primary"><a href="login.php">Entrar</a></li>
+                			<?php } ?>
+
 						</ul>
 					</div>
 				</div>

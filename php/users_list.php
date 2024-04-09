@@ -14,7 +14,7 @@
 <body>
 
     <?php include("../Conexão.php");
-    $sql = "SELECT id_user, nome_user, email FROM usuarios";
+    $sql = "SELECT id_user, nome_user, email, senha FROM usuarios";
     $result = $conn->query($sql);
     ?>
 
@@ -31,7 +31,8 @@
                         <img src="../images/default_icon.png" class="w3-bar-item w3-circle w3-hide-small w3-margin-top w3-margin-bottom" style="width:85px">
                         <div class="w3-bar-item w3-margin-top w3-margin-bottom">
                             <span class="w3-large"><?php echo $row['nome_user'] ?></span> <br>
-                            <span><?php echo $row['email'] ?></span>
+                            <span><?php echo $row['email'] ?></span> <br>
+                            <span><?php echo $row['senha'] ?></span>
                         </div>
 
                         <form action="users_del_php.php" method="post">

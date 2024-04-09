@@ -7,6 +7,7 @@
     <title>Flavour_Stalker</title>
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
@@ -16,17 +17,34 @@
                 <div class="first-colunn">
                     <h2 class="tittle"><i class="fas fa-right-to-bracket icon-modify"></i>Login</h2>
                     <i class="fas fa-heart icon-modify"></i>
-                    <form class="form">
+
+                    <?php session_start();
+                    if (isset($_SESSION["error"])) {
+                        echo '
+                            <div class="w3-panel w3-pale-red w3-border">
+                                <p>'  . $_SESSION["error"] . '</p>
+                            </div>
+                        ';
+                        unset($_SESSION["error"]);
+                    }
+                    ?>
+
+                    <form method="POST" name="formLogin" action="php/login_php.php" class="form">
+
                         <div class="label-input">
                             <i class="fas fa-user icon-modify"></i>
-                            <input type="text" placeholder="Usuário">
+                            <input name="txtEmail" type="text" placeholder="Email">
                         </div>
+
                         <div class="label-input">
                             <i class="fas fa-lock icon-modify"></i>
-                            <input type="password" id="senha" placeholder="Senha">
+                            <input name="txtSenha" type="password" id="senha" placeholder="Senha">
                         </div>
+
                         <input type="submit" value="Entrar" class="btn">
                     </form>
+
+
                     <div class="social-media">
                         <div class="btn">
                             <a href="senha.php" class="btn-primary">Esqueci Minha Senha</a>
@@ -43,7 +61,6 @@
         </div>
         <?php
         include("Conexão.php");
-
         ?>
 </body>
 

@@ -6,6 +6,8 @@ $nome = $_POST["txtNome"];
 $email = $_POST["txtEmail"];
 $senha = $_POST["txtSenha"];
 
+$senha = password_hash($senha, PASSWORD_DEFAULT);
+
 $sql = "SELECT * FROM usuarios WHERE email = '$email'";
 $result = $conn->query($sql);
 
