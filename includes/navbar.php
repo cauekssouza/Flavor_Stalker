@@ -61,8 +61,7 @@
 							<li <?php if ($currentPage === 'contato.php') : ?>class="active" <?php endif; ?>>
 								<a href="contato.php">Contato</a>
 							</li>
-							<li><a href="cadastrar.php">Cadastrar-se</a></li>
-							<li><a href="php/users_list.php">Lista de Usuários</a></li>
+							<li class="btn btn-primary"><a href="login.php">Entrar</a></li>
 						</ul>
 					</div>
 				</div>
