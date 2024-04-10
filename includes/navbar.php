@@ -59,7 +59,7 @@
 								<a href="about.php">About</a>
 							</li>
 							<li <?php if ($currentPage === 'contato.php') : ?>class="active" <?php endif; ?>>
-								<a href="contato.php">Contato</a>s
+								<a href="contato.php">Contato</a>
 							</li>
 							<?php
 							session_start();
