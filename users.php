@@ -28,9 +28,17 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/flexslider.css">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <link rel="stylesheet" href="css/style.css">
 
     <script src="js/modernizr-2.6.2.min.js"></script>
+
+    <style>
+.fh5co-blog {
+  margin-bottom: 2px; /* Reduce margin between blog entries */
+}
+</style>
 
 </head>
 
@@ -39,37 +47,46 @@
     <div class="fh5co-loader"></div>
 
     <div id="page">
-        <div class="container">
+        <div class="container gap-2">
 
             <div class="row ">
-                <div class="col col-md-4 ">
+                <div class="col-md-3">
 
                     <div class="fh5co-blog animate-box">
                         <a href="#" class="blog-bg" style="background-image: url(images/default_icon.png);"></a>
                         <div class="blog-text">
                             <span class="posted_on">Feb. 15th 2016</span>
-                            <h3><a href="#">Barolo Trattoria</a></h3>
+                            <h3 class="">Pedro samuel</h3>
                             <p>Otimo restaurante!</p>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <p><strong>Column 2</strong></p>
-                    <p>Duis placerat sed libero ut viverra. Sed gravida aliquet nisi vitae porta.</p>
+
+                <div class="col-md-8">
+                    <div class="fh5co-blog animate-box">
+                        <div class="blog-text">
+                            <span class="posted_on">Feb. 15th 2016</span>
+                            <h3 style="color:white;">Barolo Trattoria</h3>
+                            <p>ddddd</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="row ">
-                <div class="col col-md-4">
-                    <button class="btn btn-primary"><strong>Editar Perfil</strong></button>
+                <div class="col-md-3 d-grid">
+                    <button class="btn btn-primary d"><strong>Editar Perfil</strong></button>
                 </div>
             </div>
 
             <div class="row ">
-                <div class="col col-md-4">
+                <div class="col-md-3 d-grid">
                     <button class="btn btn-primary"><strong>Favoritos</strong></button>
                 </div>
             </div>
+
+
+
 
 
 
