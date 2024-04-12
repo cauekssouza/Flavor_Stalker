@@ -47,68 +47,40 @@
     <div class="fh5co-loader"></div>
 
     <div id="page">
-        <div class="container">
-
-            <div class="row mt-5">
-                <div class="col-md-2">
-
-                    <div class="fh5co-blog animate-box">
-
-                        <a href="#" class="blog-bg" style="background-image: url(images/default_icon.png);"></a>
-
-                        <div class="blog-text">
-                            <?php
-                            session_start();
-                            $user = $_SESSION['nome_user'];
-                            ?>
-                            <span class="posted_on" style="color:white;">Feb. 15th 2016</span>
-                            <h3 class="bs-emphasis-color"><?php echo $user ?></h3>
-                            <p>Otimo restaurante!</p>
-                        </div>
+        <div class="container text-center">
+            <div class="container mt-5">
+                <?php
+                session_start();
+                $nome_user = $_SESSION['nome_user'];
+                ?>
+	            <div class="row ">
+		            <div class="border rounded-3 col col-md-3 col-lg-3">
+                        <img src="images/default_icon.png" class="rounded img-fluid" width="150" height="150">
+                        <p><?php echo $nome_user ?></p>
+                        <p> Data criação: </p>
+                        <p> Dono de restaurante </p>
                     </div>
-                </div>
-
-                <div class="col-md-8">
-                    <div class="fh5co-blog animate-box">
-                        <div class="blog-text">
-                            <span class="posted_on" style="color:white;">Feb. 15th 2016</span>
-                            <h3 style="color:white;">Barolo Trattoria</h3>
-                            <p>ddddd</p>
-                        </div>
+		            <div class="border col col-md-8 col-lg-8">
+                        Feedback
+                        <div class="row border">IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</div>
+                        <div class="row border">IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</div>
+                        <div class="row border">IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</div>
                     </div>
-                </div>
+	            </div>
+
+	            <div class="row">
+		            <div class="border btn btn-primary col col-md-3 col-lg-3">Editar perfil</div>
+	            </div>
+
+	            <div class="row">
+		            <div class="border btn btn-primary col col-md-3 col-lg-3">Favoritos</div>
+	            </div>
             </div>
-
-            <div class="row ">
-                <div class="col-md-2 d-grid">
-                    <button class="btn btn-primary d"><strong>Editar Perfil</strong></button>
-                </div>
-            </div>
-
-            <div class="row ">
-                <div class="col-md-2 d-grid">
-                    <button class="btn btn-primary"><strong>Favoritos</strong></button>
-                </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
         </div>
     </div>
 
 
-
-
-
-    <div class="gototop js-top">
+  <div class="gototop js-top">
         <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
     </div>
 
