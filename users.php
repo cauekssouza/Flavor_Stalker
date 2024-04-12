@@ -35,10 +35,10 @@
     <script src="js/modernizr-2.6.2.min.js"></script>
 
     <style>
-.fh5co-blog {
-  margin-bottom: 2px; /* Reduce margin between blog entries */
-}
-</style>
+        .white {
+            color: white;
+        }
+    </style>
 
 </head>
 
@@ -47,16 +47,22 @@
     <div class="fh5co-loader"></div>
 
     <div id="page">
-        <div class="container gap-2">
+        <div class="container">
 
-            <div class="row ">
-                <div class="col-md-3">
+            <div class="row mt-5">
+                <div class="col-md-2">
 
                     <div class="fh5co-blog animate-box">
+
                         <a href="#" class="blog-bg" style="background-image: url(images/default_icon.png);"></a>
+
                         <div class="blog-text">
-                            <span class="posted_on">Feb. 15th 2016</span>
-                            <h3 class="">Pedro samuel</h3>
+                            <?php
+                            session_start();
+                            $user = $_SESSION['nome_user'];
+                            ?>
+                            <span class="posted_on" style="color:white;">Feb. 15th 2016</span>
+                            <h3 class="bs-emphasis-color"><?php echo $user ?></h3>
                             <p>Otimo restaurante!</p>
                         </div>
                     </div>
@@ -65,7 +71,7 @@
                 <div class="col-md-8">
                     <div class="fh5co-blog animate-box">
                         <div class="blog-text">
-                            <span class="posted_on">Feb. 15th 2016</span>
+                            <span class="posted_on" style="color:white;">Feb. 15th 2016</span>
                             <h3 style="color:white;">Barolo Trattoria</h3>
                             <p>ddddd</p>
                         </div>
@@ -74,13 +80,13 @@
             </div>
 
             <div class="row ">
-                <div class="col-md-3 d-grid">
+                <div class="col-md-2 d-grid">
                     <button class="btn btn-primary d"><strong>Editar Perfil</strong></button>
                 </div>
             </div>
 
             <div class="row ">
-                <div class="col-md-3 d-grid">
+                <div class="col-md-2 d-grid">
                     <button class="btn btn-primary"><strong>Favoritos</strong></button>
                 </div>
             </div>
