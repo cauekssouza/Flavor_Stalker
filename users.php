@@ -53,12 +53,12 @@
                 session_start();
                 $nome_user = $_SESSION['nome_user'];
                 ?>
-	            <div class="row ">
-		            <div class="border rounded-3 col col-md-3 col-lg-3">
+	            <div class="row gx-5">
+		            <div class="border col col-md-3 col-lg-3">
                         <img src="images/default_icon.png" class="rounded img-fluid" width="150" height="150">
-                        <p><?php echo $nome_user ?></p>
-                        <p> Data criação: </p>
-                        <p> Dono de restaurante </p>
+                        <p class="border"><?php echo $nome_user ?></p>
+                        <p class="border"> Data criação: </p>
+                        <p class="border"> Dono de restaurante </p>
                     </div>
 		            <div class="border col col-md-8 col-lg-8">
                         Feedback
