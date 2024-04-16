@@ -36,12 +36,6 @@
 
     <script src="js/modernizr-2.6.2.min.js"></script>
 
-    <style>
-        .white {
-            color: white;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -70,35 +64,31 @@
                     <p class=""> Data criação: </p>
                     <p class=""> Dono de restaurante </p>
                     <div class="d-grid gap-2 btn-sm">
-                        <button class=" btn btn-primary">Editar perfil</button>
-                        <div class="modal-dialog modal-dialog-centered">
-                            ...
-                        </div>
-
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Launch demo modal
+                        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Launch demo modal
                         </button>
 
-                        <!-- Modal -->
+
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
                             </div>
                         </div>
+                        </div> -->
                         <!-- <button class=" btn btn-primary">Favoritos</button> -->
+                        <button class=" btn btn-primary">Editar perfil</button>
                         <a class="btn btn-primary" href="php/logout_php.php">Sair</a>
                     </div>
                 </div>
