@@ -9,6 +9,8 @@
 					<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
 						<h1>Guia gastronomico de Curitiba</h1>
 						<h2>Feito por equipe 11</h2>
+						<button onclick="window.location.href='cad_restaurante.php'">Cadastro Restaurante</button>
+
 					</div>
 				</div>
 			</div>
