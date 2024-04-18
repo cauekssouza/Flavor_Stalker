@@ -23,6 +23,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,600i,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
 
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/icomoon.css">
 	<link rel="stylesheet" href="css/bootstrap.css">
@@ -31,6 +33,7 @@
 	<link rel="stylesheet" href="css/style.css">
 
 	<script src="js/modernizr-2.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </head>
 
@@ -63,18 +66,29 @@
 							</li>
 							<?php
 							session_start();
-							if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {  // se o usuário estiver logado
+							if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {  // se o usuário estiver logado
 								$user = $_SESSION['email'];
 							?>
-								<li class="btn btn-primary"><a href="php/users_list.php">Logado</a></li>
 
-							<?php } else { ?>
-                    			<li class="btn btn-primary"><a href="login.php">Entrar</a></li>
-                			<?php } ?>
+								<li>
+									<a href="users.php">
+										<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+											<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+											<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+										</svg>
+										Perfil
+									</a>
+								</li>
 
-						</ul>
 					</div>
-				</div>
 
+				<?php } else { ?>
+					<li class="btn btn-primary"><a href="login.php">Entrar</a></li>
+				<?php } ?>
+
+				</ul>
+				</div>
 			</div>
-		</nav>
+
+	</div>
+	</nav>
