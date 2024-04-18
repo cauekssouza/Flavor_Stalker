@@ -58,3 +58,4 @@ CREATE TABLE prato (
     info_nutricional VARCHAR(255),
     FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
 );
+
