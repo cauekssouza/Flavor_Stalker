@@ -20,6 +20,7 @@
             <input type="time" placeholder="Horário de Funcionamento" name="horario"required>
             <input type="number" placeholder="Capacidade" name="capacidade"required>
             <button onclick="validar()">Enviar</button>
+            <button onclick="window.location.href='index.php'">Voltar</button>
         </form>
         <script src="valida.js"></script>
     </div>
