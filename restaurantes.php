@@ -22,28 +22,43 @@
 			<div class="col-md-12 fh5co-heading animate-box">
 				<h2>Restaurantes</h2>
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-md-12">
 
 
-					<div class="list-group list-group-flush">
-  <a href="#" class="list-group-item  list-group-item-action bg-black border border-dark mb-5" style="--bs-bg-opacity: .2;">
-    <div class="d-flex w-100 justify-content-between ">
-      <h5 class="mb-1">List group item heading</h5>
-      <small>3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small>And some small print.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action bg-dark border border-dark" style="--bs-bg-opacity: .2;" >
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small>3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small>And some muted small print.</small>
-  </a>
 
-</div>
+
+
+						<div href="#" class="card mb-3 text-bg-dark " style="--bs-bg-opacity: .4; ">
+							<div class="row g-0">
+								<div class="col-md-4">
+									<img src="images/gallery_2.jpeg" class="img-responsive img-fluid rounded-start" style="min-width: 300px; min-height:100px;">
+								</div>
+								<div class="col-md-8">
+									<div class="card-body">
+										<div class="d-flex w-100 justify-content-between">
+											<h3 class="mb-1 card-title">Some placeholder content in a paragraph.</h3>
+											<small class="card-text"><span class="badge text-bg-secondary rounded-pill">Secondary</span></small>
+										</div>
+										<p class="card-text mt-3">Tas a natural lead-in to additional content. This content is a little bit lonural lead-in to additional content. This content is a little bit lonural lead-in to additional content. This content is a little bit lonural lead-in to additional content. This conger.</p>
+										<a class="icon-link-hover" href="#">
+											Ver Mais
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+												<path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+											</svg>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -109,7 +124,9 @@
 		</div>
 
 
-		<div class="row"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis atque magnam, officiis aspernatur perferendis commodi minus debitis velit fugiat neque, enim veniam assumenda rem beatae sed laborum. Natus, unde porro.</p></div>
+		<div class="row">
+			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis atque magnam, officiis aspernatur perferendis commodi minus debitis velit fugiat neque, enim veniam assumenda rem beatae sed laborum. Natus, unde porro.</p>
+		</div>
 
 
 	</div>

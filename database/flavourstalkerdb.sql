@@ -1,70 +1,60 @@
-CREATE TABLE usuario (
-    id_user INT PRIMARY KEY,
-    nome_user VARCHAR,
-    email VARCHAR,
-    senha VARCHAR(255),
-    endereco_user VARCHAR,
-    foto_user BLOB,
-    fk_tipousuario_id_tipo INT
-);
+DROP DATABASE IF EXISTS flavourstalkerdb;
+CREATE DATABASE flavourstalkerdb;
+USE flavourstalkerdb;
 
-CREATE TABLE avaliacao (
-    notas INT,
-    descricao TEXT,
-    fk_usuario_id_user INT,
-    fk_prato_id_prato INT,
-    fk_restaurante_id_restaurante INT
-);
-
-CREATE TABLE prato (
-    id_prato INT PRIMARY KEY,
-    ingredientes VARCHAR,
-    preco DECIMAL(10,2),
-    nome VARCHAR,
-    modo_preparo VARCHAR,
-    info_nutricional VARCHAR,
-    fk_restaurante_id_restaurante INT
-);
-
-CREATE TABLE restaurante (
-    id_restaurante INT PRIMARY KEY,
-    nome VARCHAR,
-    localizacao VARCHAR,
-    dono VARCHAR,
-    estilo_culinario VARCHAR,
-    descricao TEXT,
-    horario VARCHAR,
-    classificacao VARCHAR,
-    capacidade INT
-);
-
-CREATE TABLE tipousuario (
-    id_tipo INT PRIMARY KEY,
-    nome_tipo VARCHAR,
+CREATE TABLE tipo_usuario (
+    id_tipo INT AUTO_INCREMENT PRIMARY KEY,
+    nome_tipo VARCHAR(255),
     descricao TEXT
 );
 
-ALTER TABLE usuario ADD CONSTRAINT FK_usuario_2
-    FOREIGN KEY (fk_tipousuario_id_tipo)
-    REFERENCES tipousuario (id_tipo)
-    ON DELETE RESTRICT;
+INSERT INTO `tipo_usuario` (`id_tipo`, `nome_tipo`, `descricao`) VALUES
+(1, 'Comum', 'Pode dar feedback de restaurantes'),
+(2, 'Dono de Restaurante', 'Pode gerenciar seu restaurante'),
+(3, 'Administrador', 'Gerencia usuarios e restaurantes');
 
-ALTER TABLE avaliacao ADD CONSTRAINT FK_avaliacao_1
-    FOREIGN KEY (fk_usuario_id_user)
-    REFERENCES usuario (id_user)
-    ON DELETE CASCADE;
+CREATE TABLE usuarios (
+  id_user INT AUTO_INCREMENT PRIMARY KEY,
+  id_tipo INT,
+  nome_user VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  senha VARCHAR(255) NOT NULL,
+  endereco_user VARCHAR(255) NOT NULL,
+  foto_user MEDIUMBLOB,
+  data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_tipo) REFERENCES tipo_usuario(id_tipo)
+);
 
-ALTER TABLE avaliacao ADD CONSTRAINT FK_avaliacao_2
-    FOREIGN KEY (fk_prato_id_prato)
-    REFERENCES prato (id_prato)
-    ON DELETE CASCADE;
+CREATE TABLE restaurantes (
+    id_restaurante INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    endereco VARCHAR(255),
+    dono VARCHAR(255),
+    estilo_culinario VARCHAR(255),
+    descricao TEXT,
+    horario VARCHAR(255),
+    classificacao VARCHAR(255),
+    capacidade INT,
+    telefone VARCHAR(20)
+);
 
-ALTER TABLE avaliacao ADD CONSTRAINT FK_avaliacao_3
-    FOREIGN KEY (fk_restaurante_id_restaurante)
-    REFERENCES restaurante (id_restaurante)
-    ON DELETE CASCADE;
+CREATE TABLE avaliacao (
+    id_avaliacao INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT,
+    id_restaurante INT,
+    comentario TEXT,
+    data_comentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_user) REFERENCES usuarios(id_user),
+    FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
+);
 
-ALTER TABLE prato ADD CONSTRAINT FK_prato_2
-    FOREIGN KEY (fk_restaurante_id_restaurante)
-    REFERENCES restaurante (id_restaurante)
-    ON DELETE RESTRICT;
+CREATE TABLE prato (
+    id_prato INT AUTO_INCREMENT PRIMARY KEY,
+    id_restaurante INT,
+    ingredientes VARCHAR(255),
+    preco DECIMAL(10,2),
+    nome VARCHAR(255),
+    modo_preparo VARCHAR(255),
+    info_nutricional VARCHAR(255),
+    FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
+);

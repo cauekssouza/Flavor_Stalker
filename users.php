@@ -64,29 +64,7 @@
                     <p class=""> Data criação: </p>
                     <p class=""> Dono de restaurante </p>
                     <div class="d-grid gap-2 btn-sm">
-                        <!-- Button trigger modal -->
-                        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Launch demo modal
-                        </button>
 
-
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                            </div>
-                        </div>
-                        </div> -->
                         <!-- <button class=" btn btn-primary">Favoritos</button> -->
                         <button class=" btn btn-primary">Editar perfil</button>
                         <a class="btn btn-primary" href="php/logout_php.php">Sair</a>
@@ -100,6 +78,21 @@
                     <div class="row border">IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</div>
                 </div>
             </div>
+
+
+
+
+
+            <!-- <div class="list-group list-group-flush ">
+                <a href="#" class="list-group-item  list-group-item-action bg-dark border border-dark mb-5" style="--bs-bg-opacity: .2; ">
+                    <div class="d-flex w-100 justify-content-between ">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small>3 days ago</small>
+                    </div>
+                    <p class="mb-1">Some placeholder content in a paragraph.</p>
+                    <small>And some small print.</small>
+                </a>
+            </div> -->
 
 
 
