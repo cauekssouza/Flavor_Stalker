@@ -52,6 +52,7 @@
             if (isset($_SESSION['id_user'])) {  // se o usuário estiver logado
                 $id_user = $_SESSION['id_user'];
                 $nome_user = $_SESSION['nome_user'];
+                $data_criacao = $_SESSION['data_criacao'];
             } else {
                 header("Location: login.php");
                 exit();
@@ -61,7 +62,7 @@
                 <div class="border border-dark rounded m-5 bg-dark col-md-3 col-lg-3" style="--bs-bg-opacity: .5;">
                     <img src="images/default_icon.png" class="rounded-circle img-fluid p-3" width="150" height="150">
                     <p class=""><?php echo $nome_user ?></p>
-                    <p class=""> Data criação: </p>
+                    <p class=""> Data criação:  <?php echo $data_criacao ?> </p>
                     <p class=""> Dono de restaurante </p>
                     <div class="d-grid gap-2 btn-sm">
 

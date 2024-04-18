@@ -12,7 +12,7 @@ if(empty($email) || empty($senha)) {
     exit;
 }
 
-$sql = "SELECT id_user, nome_user, email, senha FROM usuarios WHERE email = '$email'";
+$sql = "SELECT id_user, nome_user, email, senha, data_criacao FROM usuarios WHERE email = '$email'";
 $result = $conn->query($sql);
 
 if($result->num_rows > 0){
@@ -22,6 +22,8 @@ if($result->num_rows > 0){
             $_SESSION['id_user']    = $row['id_user'];
             $_SESSION['email']      = $row['email'];
             $_SESSION['nome_user']  = $row['nome_user'];
+            $_SESSION['nome_user']  = $row['nome_user'];
+            $_SESSION['data_criacao'] = $row['data_criacao'];
             $_SESSION["loggedIn"]   = true;
 
             header("Location: ../index.php");
