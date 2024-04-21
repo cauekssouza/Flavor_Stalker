@@ -2,7 +2,13 @@
 include("includes/navbar.php");
 include("Conexão.php");
 
-$sql = "SELECT id_restaurante, nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone FROM restaurantes";
+
+if (isset($_GET['id'])) {
+    $id_restaurante = $_GET['id'];
+
+$sql = "SELECT id_restaurante, nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone
+            FROM restaurantes
+            WHERE id_restaurante = $id_restaurante";
 $result = $conn->query($sql);
 
 ?>
@@ -47,4 +53,12 @@ $result = $conn->query($sql);
 </div>
 
 
-<?php include("includes/footer.php") ?>
+<?php
+} else {
+    echo "ID do restaurante não fornecido na URL";
+}
+
+include("includes/footer.php") ?>
+
+
+

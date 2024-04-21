@@ -16,27 +16,39 @@ INSERT INTO `tipo_usuario` (`id_tipo`, `nome_tipo`, `descricao`) VALUES
 CREATE TABLE usuarios (
   id_user INT AUTO_INCREMENT PRIMARY KEY,
   id_tipo INT,
-  nome_user VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL UNIQUE,
-  senha VARCHAR(255) NOT NULL,
-  endereco_user VARCHAR(255) NOT NULL,
+  nome_user VARCHAR(255),
+  email VARCHAR(255) UNIQUE,
+  senha VARCHAR(255),
+  endereco_user VARCHAR(255),
   foto_user MEDIUMBLOB,
   data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (id_tipo) REFERENCES tipo_usuario(id_tipo)
 );
 
+INSERT INTO usuarios (id_tipo, nome_user, email, senha)
+VALUES (3, 'Admin', 'Admin@123.com', '$2y$10$6COIqPqLnrKGXWkQ/U7AdeoFUd26p3.7B4udB8kWfxD9r/58M51R.');
+
 CREATE TABLE restaurantes (
     id_restaurante INT AUTO_INCREMENT PRIMARY KEY,
+    id_proprietario INT,
     nome VARCHAR(255),
     endereco VARCHAR(255),
     dono VARCHAR(255),
     estilo_culinario VARCHAR(255),
     descricao TEXT,
     horario VARCHAR(255),
-    classificacao VARCHAR(255),
     capacidade INT,
-    telefone VARCHAR(20)
+    telefone VARCHAR(20),
+    foto_restaurante MEDIUMBLOB,
+	FOREIGN KEY (id_proprietario) REFERENCES usuarios(id_user)
 );
+
+INSERT INTO restaurantes
+(nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone)
+VALUES
+('Cantina Italiana', 'Rua das Flores, 123, Bairro Jardim', 'José Almeida', 'Italiano', 'A Cantina Italiana oferece uma experiência autêntica de culinária italiana, com uma seleção de pratos tradicionais preparados com ingredientes importados.', '12:00 - 23:00', 50, '1234-5678');
+
+SELECT * FROM restaurantes;
 
 CREATE TABLE avaliacao (
     id_avaliacao INT AUTO_INCREMENT PRIMARY KEY,
