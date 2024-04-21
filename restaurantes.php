@@ -24,35 +24,44 @@
 				<div class="row">
 					<div class="col-md-12">
 
+						<?php
+						include("Conexão.php");
 
+						$sql = "SELECT id_restaurante, nome, endereco, descricao, estilo_culinario FROM restaurantes";
+						$result = $conn->query($sql);
 
-
-
-						<div href="#" class="card mb-3 text-bg-dark " style="--bs-bg-opacity: .4; ">
-							<div class="row g-0">
-								<div class="col-md-4">
-									<img src="images/gallery_2.jpeg" class="img-responsive img-fluid rounded-start" style="min-width: 300px; min-height:100px;">
-								</div>
-								<div class="col-md-8">
-									<div class="card-body">
-										<div class="d-flex w-100 justify-content-between">
-											<h3 class="mb-1 card-title">Some placeholder content in a paragraph.</h3>
-											<small class="card-text"><span class="badge text-bg-secondary rounded-pill">Secondary</span></small>
+						if ($result->num_rows > 0) {
+							// Iterar sobre cada linha de resultado
+							while ($row = $result->fetch_assoc()) {
+						?>
+								<div href="#" class="card mb-3 text-bg-dark " style="--bs-bg-opacity: .4;">
+									<div class="row g-0">
+										<div class="col-md-4">
+											<img src="images/gallery_2.jpeg" class="img-responsive img-fluid rounded-start" style="min-width: 300px; min-height:100px;">
 										</div>
-										<p class="card-text mt-3">Tas a natural lead-in to additional content. This content is a little bit lonural lead-in to additional content. This content is a little bit lonural lead-in to additional content. This content is a little bit lonural lead-in to additional content. This conger.</p>
-										<a class="icon-link-hover" href="#">
-											Ver Mais
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-												<path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-											</svg>
-										</a>
+										<div class="col-md-8">
+											<div class="card-body">
+												<div class="d-flex w-100 justify-content-between">
+													<h3 class="mb-1 card-title"><?php echo $row["nome"]; ?></h3>
+													<small class="card-text"><span class="badge text-bg-secondary rounded-pill"><?php echo $row["estilo_culinario"]; ?></span></small>
+												</div>
+												<p class="card-text mt-3"><?php echo $row["descricao"]; ?></p>
+												<a class="icon-link-hover" href="restaurante.php?id=<?php echo $row["id_restaurante"]; ?>" style="--bs-link-hover-color-rgb: 25, 135, 84;">
+													Ver Mais
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+														<path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+													</svg>
+												</a>
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-
-
-
+						<?php
+							}
+						} else {
+							echo "Não há restaurantes cadastrados.";
+						}
+						?>
 
 
 
