@@ -77,7 +77,7 @@
 
                         <!-- <button class=" btn btn-primary">Favoritos</button> -->
                         <button class=" btn btn-primary">Editar perfil</button>
-                        <a href="php/cad_restaurante.php" class=" btn btn-primary">Criar Restaurante</a>
+                        <a href="cad_restaurante.php" class=" btn btn-primary">Criar Restaurante</a>
                         <?php
 
                         // verifica se o usuário está logado
