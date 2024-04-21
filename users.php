@@ -60,6 +60,7 @@
                 exit();
             }
             ?>
+
             <div class="row gx-5">
                 <div class="border border-dark rounded m-5 bg-dark col-md-3 col-lg-3" style="--bs-bg-opacity: .5;">
                     <img src="images/default_icon.png" class="rounded-circle img-fluid p-3" width="150" height="150">
