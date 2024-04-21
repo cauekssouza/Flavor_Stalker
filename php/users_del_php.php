@@ -6,7 +6,8 @@ $sql = "DELETE FROM usuarios WHERE id_user = '$id'";
 $result = $conn->query($sql);
 
 if ($result === TRUE) {
-    header("Location: users_list.php");
+    header("Location: ../users_list.php");
+    exit();
 } else {
 ?>
 
