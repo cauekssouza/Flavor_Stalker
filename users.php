@@ -46,29 +46,68 @@
         <div class="container text-center mt-5">
 
 
+            <nav class="navbar navbar-dark fixed-top">
+                <a class="navbar-brand me-auto" href="restaurantes.php">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+                    </svg></a>
+            </nav>
+
+
+
+
+
             <?php
             session_start();
 
             if (isset($_SESSION['id_user'])) {  // se o usuário estiver logado
                 $id_user = $_SESSION['id_user'];
+                $id_tipo = $_SESSION['id_tipo'];
                 $nome_user = $_SESSION['nome_user'];
+                $email = $_SESSION['email'];
                 $data_criacao = $_SESSION['data_criacao'];
             } else {
                 header("Location: login.php");
                 exit();
             }
             ?>
+
             <div class="row gx-5">
-                <div class="border border-dark rounded m-5 bg-dark col-md-3 col-lg-3" style="--bs-bg-opacity: .5;">
+                <div class="border border-dark rounded m-5 bg-dark  col-md-3 col-lg-3" style="--bs-bg-opacity: .5;">
                     <img src="images/default_icon.png" class="rounded-circle img-fluid p-3" width="150" height="150">
                     <p class=""><?php echo $nome_user ?></p>
-                    <p class=""> Data criação:  <?php echo $data_criacao ?> </p>
-                    <p class=""> Dono de restaurante </p>
-                    <div class="d-grid gap-2 btn-sm">
+                    <p class=""> Data de criação: <?php echo date('d/m/Y', strtotime($data_criacao)); ?> </p> <!-- strtotime converte a data para o formato brasileiro -->
 
-                        <!-- <button class=" btn btn-primary">Favoritos</button> -->
+                    <?php
+                    // verifica o tipo de usuário e exibe o texto correspondente
+                    if ($_SESSION['id_tipo'] == 2) {
+                        echo "<p class=''>Dono de Restaurante</p>";
+                    } elseif ($_SESSION['id_tipo'] == 3) {
+                        echo "<p class=''>Admin</p>";
+                    }
+                    ?>
+
+                    <div class="d-grid gap-2 btn-sm">
                         <button class=" btn btn-primary">Editar perfil</button>
-                        <a class="btn btn-primary" href="php/logout_php.php">Sair</a>
+                        <a href="cad_restaurante.php" class=" btn btn-primary">Criar Restaurante</a>
+                        <?php
+
+                        // verifica se o usuário está logado
+                        if (isset($_SESSION['id_user'])) {
+                            // verifica se o tipo de usuário é administrador
+                            if ($_SESSION['id_tipo'] == 3) {
+                                // se for administrador, exibe os botões
+                        ?>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="users_list.php" class="btn btn-primary">Usuários</a>
+                                    <a href="restaurantes_list.php" class="btn btn-primary">Restaurantes</a>
+                                </div>
+                        <?php
+                            }
+                        }
+                        ?>
+                        <a href="php/logout_php.php" class="btn btn-outline-danger ">Sair <span class="fs-5">(<?php echo $email ?>)</span></a>
+
                     </div>
                 </div>
                 <div class="border border-dark rounded col col-md-8 col-lg-8">
@@ -84,16 +123,6 @@
 
 
 
-            <!-- <div class="list-group list-group-flush ">
-                <a href="#" class="list-group-item  list-group-item-action bg-dark border border-dark mb-5" style="--bs-bg-opacity: .2; ">
-                    <div class="d-flex w-100 justify-content-between ">
-                        <h5 class="mb-1">List group item heading</h5>
-                        <small>3 days ago</small>
-                    </div>
-                    <p class="mb-1">Some placeholder content in a paragraph.</p>
-                    <small>And some small print.</small>
-                </a>
-            </div> -->
 
 
 

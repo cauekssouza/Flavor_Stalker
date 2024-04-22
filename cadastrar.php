@@ -7,7 +7,7 @@
     <title>Cadastro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="cadastro.css">
+    <link rel="stylesheet" href="css/cadastro.css">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
                     <h2 class="tittle"><i class="fa-solid fa-right-to-bracket"></i>Cadastro</h2>
                     <i class="fa-solid fa-heart"></i>
                     <?php session_start();
-                    if (isset($_SESSION["error"])) {
+                    if (isset($_SESSION["error"])) { // verifica se existe uma mensagem de erro
                         echo '
                             <div class="w3-panel w3-pale-red w3-border">
                                 <p>'  . $_SESSION["error"] . '</p>
