@@ -73,10 +73,11 @@
             ?>
 
             <div class="row gx-5">
-                <div class="border border-dark rounded m-5 bg-dark col-md-3 col-lg-3" style="--bs-bg-opacity: .5;">
+                <div class="border border-dark rounded m-5 bg-dark  col-md-3 col-lg-3" style="--bs-bg-opacity: .5;">
                     <img src="images/default_icon.png" class="rounded-circle img-fluid p-3" width="150" height="150">
                     <p class=""><?php echo $nome_user ?></p>
-                    <p class=""> Data de criação: <?php echo date('d/m/Y', strtotime($data_criacao)); ?> </p>
+                    <p class=""> Data de criação: <?php echo date('d/m/Y', strtotime($data_criacao)); ?> </p> <!-- strtotime converte a data para o formato brasileiro -->
+
                     <?php
                     // verifica o tipo de usuário e exibe o texto correspondente
                     if ($_SESSION['id_tipo'] == 2) {
@@ -85,9 +86,8 @@
                         echo "<p class=''>Admin</p>";
                     }
                     ?>
-                    <div class="d-grid gap-2 btn-sm">
 
-                        <!-- <button class=" btn btn-primary">Favoritos</button> -->
+                    <div class="d-grid gap-2 btn-sm">
                         <button class=" btn btn-primary">Editar perfil</button>
                         <a href="cad_restaurante.php" class=" btn btn-primary">Criar Restaurante</a>
                         <?php
@@ -96,7 +96,7 @@
                         if (isset($_SESSION['id_user'])) {
                             // verifica se o tipo de usuário é administrador
                             if ($_SESSION['id_tipo'] == 3) {
-                                // Se for administrador, exibe os botões
+                                // se for administrador, exibe os botões
                         ?>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="users_list.php" class="btn btn-primary">Usuários</a>

@@ -30,9 +30,8 @@
 						$sql = "SELECT id_restaurante, nome, endereco, descricao, estilo_culinario FROM restaurantes";
 						$result = $conn->query($sql);
 
-						if ($result->num_rows > 0) {
-							// Iterar sobre cada linha de resultado
-							while ($row = $result->fetch_assoc()) {
+						if ($result->num_rows > 0) { // verifica se encontrou algum restaurante
+							while ($row = $result->fetch_assoc()) { // percorre todos os restaurantes encontrados e exibe na tela
 						?>
 								<div href="#" class="card mb-3 text-bg-dark " style="--bs-bg-opacity: .4;">
 									<div class="row g-0">

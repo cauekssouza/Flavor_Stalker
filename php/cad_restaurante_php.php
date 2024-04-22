@@ -2,10 +2,11 @@
 include("../Conexão.php");
 session_start();
 
-// Verifica se o formulário foi enviado
+// verifica se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $nome                = $_POST['nome'];
+    // recebe os dados do formulário
+    $nome               = $_POST['nome'];
     $endereco           = $_POST['endereco'];
     $dono               = $_POST['dono'];
     $telefone           = $_POST['telefone'];
@@ -14,25 +15,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $horario            = $_POST['horario'];
     $capacidade         = $_POST['capacidade'];
 
-    // Verifica se o usuário está logado
+    // verifica se o usuário está logado
     if (isset($_SESSION['id_user'])) {
         $id_user = $_SESSION['id_user'];
 
-        // Atualiza o tipo de usuário para "Dono de Restaurante" (ID 2)
+        // atualiza o tipo de usuário para "Dono de Restaurante" (ID 2)
         $sql_update_tipo = "UPDATE usuarios SET id_tipo = 2 WHERE id_user = $id_user";
         if ($conn->query($sql_update_tipo) === TRUE) {
             $_SESSION['id_tipo'] = 2;
         }
     } else {
-        echo "Usuário não está logado.";
-        exit; // Encerra o script se o usuário não estiver logado
+        header("Location: ../login.php");
+        exit; // encerra o script se o usuário não estiver logado
     }
 
     $sql = "INSERT INTO restaurantes (nome, endereco, dono, telefone, estilo_culinario, descricao, horario, capacidade)
             VALUES ('$nome', '$endereco', '$dono', '$telefone', '$estilo_culinario', '$descricao', '$horario', '$capacidade')";
 
-    if ($conn->query($sql) === TRUE) {
-        header("Location: ../users.php");
+    if ($conn->query($sql) === TRUE) {      // se o cadastro for bem sucedido
+        header("Location: ../users.php");   // redireciona para a página do usuário
     } else {
         echo "Erro ao cadastrar restaurante: " . $conn->error;
     }

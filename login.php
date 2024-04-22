@@ -19,7 +19,7 @@
                     <i class="fas fa-heart icon-modify"></i>
 
                     <?php session_start();
-                    if (isset($_SESSION["error"])) {
+                    if (isset($_SESSION["error"])) { // verifica se existe uma mensagem de erro
                         echo '
                             <div class="w3-panel w3-pale-red w3-border">
                                 <p>'  . $_SESSION["error"] . '</p>

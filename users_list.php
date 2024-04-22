@@ -47,7 +47,7 @@
 
     session_start();
 
-    if (!isset($_SESSION['id_tipo']) || $_SESSION['id_tipo'] != 3) {
+    if (!isset($_SESSION['id_tipo']) || $_SESSION['id_tipo'] != 3) { // se o usuário não não for um administrador (ID 3), redireciona para a página de login
         header("Location: login.php");
         exit();
     }
@@ -77,8 +77,8 @@
             </thead>
             <tbody class="table-group-divider ">
                 <?php
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
+                if ($result->num_rows > 0) { // verifica se encontrou algum usuário
+                    while ($row = $result->fetch_assoc()) { // percorre todos os usuários encontrados e exibe na tela
                         $id_user = $row['id_user'];
                 ?>
                         <tr>
@@ -97,7 +97,7 @@
                 <?php
                     }
                 } else {
-                    // Se não houver usuários no banco de dados
+                    // se não houver usuários no banco de dados
                     echo "<tr><td colspan='5'>Nenhum usuário encontrado</td></tr>";
                 }
                 ?>

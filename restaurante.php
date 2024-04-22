@@ -3,7 +3,7 @@ include("includes/navbar.php");
 include("Conexão.php");
 
 
-if (isset($_GET['id'])) {
+if (isset($_GET['id'])) { // verifica se o ID do restaurante foi fornecido na URL
     $id_restaurante = $_GET['id'];
 
 $sql = "SELECT id_restaurante, nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone
@@ -26,9 +26,8 @@ $result = $conn->query($sql);
             <?php
 
 
-            if ($result->num_rows > 0) {
-                // saida de dados de cada linha
-                while ($row = $result->fetch_assoc()) {
+            if ($result->num_rows > 0) { // verifica se encontrou algum restaurante
+                while ($row = $result->fetch_assoc()) { // percorre todos os restaurantes encontrados e exibe na tela
             ?>
                     ID:         <?php echo $row["id_restaurante"] ?> <br>
                     Nome:       <?php echo $row["nome"] ?> <br>

@@ -2,6 +2,7 @@
 
 $id = $_POST["id_user"];
 
+// exclui o usuário do banco
 $sql = "DELETE FROM usuarios WHERE id_user = '$id'";
 $result = $conn->query($sql);
 

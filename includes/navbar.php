@@ -66,7 +66,7 @@
 							</li>
 							<?php
 							session_start();
-							if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {  // se o usuário estiver logado
+							if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {  // se o usuário estiver logado adiciona o botão de perfil
 								$user = $_SESSION['email'];
 							?>
 
@@ -82,7 +82,7 @@
 
 					</div>
 
-				<?php } else { ?>
+				<?php } else { ?> <!-- se o usuário não estiver logado adiciona o botão para Entrar -->
 					<li class="btn btn-primary"><a href="login.php">Entrar</a></li>
 				<?php } ?>
 
