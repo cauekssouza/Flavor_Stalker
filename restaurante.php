@@ -6,7 +6,7 @@ include("Conexão.php");
 if (isset($_GET['id'])) { // verifica se o ID do restaurante foi fornecido na URL
     $id_restaurante = $_GET['id'];
 
-    $sql = "SELECT id_restaurante, nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone, foto_restaurante
+    $sql = "SELECT id_restaurante, id_proprietario, nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone, foto_restaurante
             FROM restaurantes
             WHERE id_restaurante = $id_restaurante";
     $result = $conn->query($sql);
@@ -31,20 +31,33 @@ if (isset($_GET['id'])) { // verifica se o ID do restaurante foi fornecido na UR
                 }
             }
 
-            if ($imagem_existente) {
-                // Exibe a imagem se existir
-                echo '<div><img src="uploads/' . $imagem_existente . '" alt="Foto do Restaurante" style="width: 100%; height: 100%; object-fit: cover;"></div>';
-            } else {
-                // Exibe o formulário se não houver imagem
+            // Verifica se o usuário está logado e se é o proprietário do restaurante
+            if (isset($_SESSION['id_user']) && $_SESSION['id_user'] == $row['id_proprietario']) {
+                if ($imagem_existente) {
+                    // Exibe a imagem se existir
+                    echo '<div><img src="uploads/' . $imagem_existente . '" alt="Foto do Restaurante" style="width: 100%; height: 100%; object-fit: cover;"></div>';
+                } else {
+                    // Exibe o formulário se não houver imagem
             ?>
-                <form action="php/upload_img.php" method="post" enctype="multipart/form-data" class="<?php echo $imagem_existente ? 'd-none' : ''; ?>">
-                    <input type="hidden" name="id_restaurante" value="<?php echo $id_restaurante; ?>">
-                    <input type="file" name="imagem" id="imagem">
-                    <input class="btn btn-primary" type="submit" name="submit" value="Enviar Imagem">
-                </form>
+                    <form action="php/upload_img.php" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id_restaurante" value="<?php echo $id_restaurante; ?>">
+                        <input type="file" name="imagem" id="imagem">
+                        <input class="btn btn-primary" type="submit" name="submit" value="Enviar Imagem">
+                    </form>
             <?php
+                }
+            } else {
+                // Exibe apenas a imagem, sem o formulário
+                if ($imagem_existente) {
+                    // Exibe a imagem se existir
+                    echo '<div><img src="uploads/' . $imagem_existente . '" alt="Foto do Restaurante" style="width: 100%; height: 100%; object-fit: cover;"></div>';
+                } else {
+                    // Exibe uma mensagem de que não há imagem disponível
+                    echo '<div class="bg-dark text-white text-center">Imagem não disponível</div>';
+                }
             }
             ?>
+
 
             <div class="bg-dark border rounded-3">
                 <?php

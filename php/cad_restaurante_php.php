@@ -29,8 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit; // encerra o script se o usuário não estiver logado
     }
 
-    $sql = "INSERT INTO restaurantes (nome, endereco, dono, telefone, estilo_culinario, descricao, horario, capacidade)
-            VALUES ('$nome', '$endereco', '$dono', '$telefone', '$estilo_culinario', '$descricao', '$horario', '$capacidade')";
+    // Inclua o ID do usuário na consulta SQL
+    $sql = "INSERT INTO restaurantes (id_proprietario, nome, endereco, dono, telefone, estilo_culinario, descricao, horario, capacidade)
+            VALUES ('$id_user', '$nome', '$endereco', '$dono', '$telefone', '$estilo_culinario', '$descricao', '$horario', '$capacidade')";
 
     if ($conn->query($sql) === TRUE) {      // se o cadastro for bem sucedido
         header("Location: ../users.php");   // redireciona para a página do usuário
@@ -38,5 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Erro ao cadastrar restaurante: " . $conn->error;
     }
 }
+
 ?>
 
