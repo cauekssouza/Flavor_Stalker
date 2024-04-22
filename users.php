@@ -137,7 +137,7 @@
                     <div class="border border-dark rounded col col-md-8 col-lg-8">
                         <p class="border-bottom border-dark">Feedback</p>
                         <div class="row border-bottom border-dark text-white">
-                            <p> Nenhum feedback feito </p>
+                            <p> Nenhum feedback feito </p> 
                         </div>
                     </div>
                 <?php
