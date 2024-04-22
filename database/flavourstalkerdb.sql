@@ -40,25 +40,16 @@ CREATE TABLE restaurantes (
     capacidade INT,
     telefone VARCHAR(20),
     foto_restaurante MEDIUMBLOB,
-	FOREIGN KEY (id_proprietario) REFERENCES usuarios(id_user)
+    FOREIGN KEY (id_proprietario) REFERENCES usuarios(id_user)
 );
 
 INSERT INTO restaurantes
-(nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone)
+(nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone, foto_restaurante)
 VALUES
-('Cantina Italiana', 'Rua das Flores, 123, Bairro Jardim', 'José Almeida', 'Italiano', 'A Cantina Italiana oferece uma experiência autêntica de culinária italiana, com uma seleção de pratos tradicionais preparados com ingredientes importados.', '12:00 - 23:00', 50, '1234-5678');
+('Cantina Italiana', 'Rua das Flores, 123, Bairro Jardim', 'José Almeida', 'Italiano', 'A Cantina Italiana oferece uma experiência autêntica de culinária italiana, com uma seleção de pratos tradicionais preparados com ingredientes importados.', '12:00 - 23:00', 50, '1234-5678', "gallery_2.jpeg");
 
 SELECT * FROM restaurantes;
 
-CREATE TABLE avaliacao (
-    id_avaliacao INT AUTO_INCREMENT PRIMARY KEY,
-    id_user INT,
-    id_restaurante INT,
-    comentario TEXT,
-    data_comentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_user) REFERENCES usuarios(id_user),
-    FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
-);
 
 CREATE TABLE prato (
     id_prato INT AUTO_INCREMENT PRIMARY KEY,
@@ -71,3 +62,14 @@ CREATE TABLE prato (
     FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
 );
 
+CREATE TABLE avaliacao (
+    id_avaliacao INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT,
+    id_restaurante INT,
+    id_prato INT,
+    comentario TEXT,
+    data_comentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_user) REFERENCES usuarios(id_user),
+    FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante),
+    FOREIGN KEY (id_prato) REFERENCES prato(id_prato)
+);
