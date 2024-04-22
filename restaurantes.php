@@ -27,7 +27,7 @@
 						<?php
 						include("Conexão.php");
 
-						$sql = "SELECT id_restaurante, nome, endereco, descricao, estilo_culinario FROM restaurantes";
+						$sql = "SELECT id_restaurante, nome, endereco, descricao, estilo_culinario, foto_restaurante FROM restaurantes";
 						$result = $conn->query($sql);
 
 						if ($result->num_rows > 0) { // verifica se encontrou algum restaurante
@@ -36,7 +36,7 @@
 								<div href="#" class="card mb-3 text-bg-dark " style="--bs-bg-opacity: .4;">
 									<div class="row g-0">
 										<div class="col-md-4">
-											<img src="images/gallery_2.jpeg" class="img-responsive img-fluid rounded-start" style="min-width: 300px; min-height:100px;">
+											<img src="uploads/<?php echo $row["foto_restaurante"]; ?>" class="img-responsive img-fluid rounded-start" style="min-width: 300px; min-height:100px;">
 										</div>
 										<div class="col-md-8">
 											<div class="card-body">
