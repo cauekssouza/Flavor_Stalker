@@ -110,13 +110,36 @@
 
                     </div>
                 </div>
-                <div class="border border-dark rounded col col-md-8 col-lg-8">
-                    <p class="border-bottom border-dark">Feedback</p>
+                <?php
 
-                    <div class="row border">IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</div>
-                    <div class="row border">IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</div>
-                    <div class="row border">IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</div>
-                </div>
+                include("Conexão.php");
+
+
+                // Consulta os feedbacks do usuário atualmente logado
+                $sql = "SELECT comentario, data_comentario FROM avaliacao WHERE id_user = $id_user ORDER BY data_comentario DESC";
+                $result = $conn->query($sql);
+
+                // Verifica se há feedbacks
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+
+                ?>
+                        <div class="border border-dark rounded col col-md-8 col-lg-8">
+                        <p class="border-bottom border-dark">Feedback</p>
+                        <div class="row border-bottom border-dark text-white">
+                        <p> <?php echo $row['comentario'] ?> </p>
+                        </div>
+                        </div>
+                <?php
+                    }
+                } else {
+                    // Se não houver feedbacks
+                    echo '<p class="text-center">Nenhum feedback encontrado.</p>';
+                }
+
+                $conn->close();
+                ?>
+
             </div>
 
 
