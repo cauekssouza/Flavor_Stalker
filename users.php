@@ -125,16 +125,22 @@
 
                 ?>
                         <div class="border border-dark rounded col col-md-8 col-lg-8">
-                        <p class="border-bottom border-dark">Feedback</p>
-                        <div class="row border-bottom border-dark text-white">
-                        <p> <?php echo $row['comentario'] ?> </p>
+                            <p class="border-bottom border-dark">Feedback</p>
+                            <div class="row border-bottom border-dark text-white">
+                                <p> <?php echo $row['comentario'] ?> </p>
+                            </div>
                         </div>
-                        </div>
-                <?php
+                    <?php
                     }
                 } else {
-                    // Se não houver feedbacks
-                    echo '<p class="text-center">Nenhum feedback encontrado.</p>';
+                    ?>
+                    <div class="border border-dark rounded col col-md-8 col-lg-8">
+                        <p class="border-bottom border-dark">Feedback</p>
+                        <div class="row border-bottom border-dark text-white">
+                            <p> Nenhum feedback feito </p>
+                        </div>
+                    </div>
+                <?php
                 }
 
                 $conn->close();
