@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flavour_Stalker</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
@@ -16,10 +16,8 @@
             <div class="first-content">
                 <div class="first-colunn">
                     <h2 class="tittle"><i class="fas fa-right-to-bracket icon-modify"></i>Login</h2>
-                    <i class="fas fa-heart icon-modify"></i>
-
                     <?php session_start();
-                    if (isset($_SESSION["error"])) { // verifica se existe uma mensagem de erro
+                    if (isset($_SESSION["error"])) {
                         echo '
                             <div class="w3-panel w3-pale-red w3-border">
                                 <p>'  . $_SESSION["error"] . '</p>
@@ -43,7 +41,7 @@
 
                         <input type="submit" value="Entrar" class="btn">
                     </form>
-
+                    
 
                     <div class="social-media">
                         <div class="btn">
@@ -52,9 +50,9 @@
                         <div class="btn">
                             <a href="cadastrar.php" class="btn-primary">Cadastre-se</a>
                         </div>
-                    </div>
-                    <div class="second-colunn">
-                        <p></p>
+                        <div class="btn">
+                        <button class="btn-primary" onclick="window.location.href='index.php'">Voltar</button>
+                        </div>
                     </div>
                 </div>
             </div>
