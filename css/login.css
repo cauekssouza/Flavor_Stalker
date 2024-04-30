@@ -12,12 +12,12 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #2b2d42;
+    background-color: #A0153E;
 }
 
 .content{
-    background-color: #ffffff;
-    border-radius: 10px;
+    background-color: #C40C0C;
+    border-radius: 1px;
     width: 960px;
     height: 75%;
     display: flex;
@@ -29,17 +29,17 @@
 .content::before{
     position: absolute;
     content: "";
-    background-color: #fee440;
+    background-color:#201658 ;
     width: 40%;
     height: 100%;
     border-radius: 10px 0px 0px 10px;
-    color: #2b2d42;
+    color: #A0153E;
     animation: slidein 1s forwards;
 }
 
 .first-content{
     display: flex;
-    z-index: 10;
+    z-index: 9;
 }
 
 
@@ -49,19 +49,19 @@
 }
 
 .tittle{
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 700;
     text-transform: capitalize;
-    color: #2b2d42;
+    color: #FF8A08;
 }
 
 .icon-modify{
-    color: rgba(16, 199, 52, 0.6);
+    color: rgb(255, 0, 0);
     padding: 0 10px;
 }
 
 .form{
-    padding-top: 15px;
+    padding-top: 2px;
     display: flex;
     flex-direction: column;
     width: 55%;
@@ -74,7 +74,7 @@
 }
 
 .label-input{
-    background-color: #E8751A;
+    background-color: #fff;
     display: flex;
     align-items: center;
     margin-top: 15px;
@@ -83,8 +83,8 @@
 .btn {
     border-radius: 10px;
     text-transform: capitalize;
-    background-color: #5356FF;
-    color: #4CCD99;
+    background-color: #0C0C0C;
+    color: #C40C0C;
     font-size: 12px;
     font-weight: 500;
     margin: 35px 10px 0; /* Adjust margin to create separation */
@@ -95,8 +95,8 @@
 
 
 .btn:hover {
-    background-color: #124076;
-    color: #87A922;
+    background-color: #C40C0C;
+    color: #fff;
 }
 
 .btn-primary {
@@ -105,21 +105,21 @@
 }
 
 .btn-primary:hover {
-    background-color: #9BCF53;
-    color:#15F5BA;  
+    background-color: #C40C0C;
+    color: #fff;;  
 }
 
 
 input[type="text"] {
     /* Your styles here */
-    width: 200px; 
+    width: 400px; 
     height: 40px; 
     padding: 30px; 
 }
 
 input[type="password"]#senha {
     /* Your styles here */
-    width: 200px; /* Example width */
+    width: 400px; /* Example width */
     height: 40px; /* Example height */
     padding: 30px; /* Example padding */
 }
@@ -145,7 +145,7 @@ input[type="password"]#senha {
 .btn-primary {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff; /* Change this to your desired color */
+    background-color: #C40C0C; /* Change this to your desired color */
     color: #fff; /* Text color */
     text-decoration: none; /* Remove underline from the link */
     border: none;
@@ -154,7 +154,7 @@ input[type="password"]#senha {
 
 /* Hover effect for primary button */
 .btn-primary:hover {
-    background-color: #0056b3; /* Change this to a darker shade for hover effect */
+    background-color: #0C0C0C; /* Change this to a darker shade for hover effect */
 }
 
 
