@@ -57,9 +57,7 @@
                 </div>
             </div>
         </div>
-        <?php
-        include("Conexão.php");
-        ?>
+
 </body>
 
 </html>
