@@ -34,13 +34,15 @@
 
     <link rel="stylesheet" href="css/style.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css">
+    <link rel="stylesheet" href="iziModal.min.css">
+
     <script src="js/modernizr-2.6.2.min.js"></script>
 
 </head>
 
 <body>
 
-    <div class="fh5co-loader"></div>
 
     <div id="page">
         <div class="container text-center mt-5">
@@ -72,7 +74,7 @@
             }
             ?>
 
-            <div class="row gx-5">
+                <div class="row gx-5">
                 <div class="border border-dark rounded m-5 bg-dark  col-md-3 col-lg-3" style="--bs-bg-opacity: .5;">
                     <img src="images/default_icon.png" class="rounded-circle img-fluid p-3" width="150" height="150">
                     <p class=""><?php echo $nome_user ?></p>
@@ -88,7 +90,6 @@
                     ?>
 
                     <div class="d-grid gap-2 btn-sm">
-                        <button class=" btn btn-primary">Editar perfil</button>
                         <a href="cad_restaurante.php" class=" btn btn-primary">Criar Restaurante</a>
                         <?php
 
@@ -106,6 +107,27 @@
                             }
                         }
                         ?>
+                        <button class="btn btn-primary" id="abrirModal">Abrir Modal</button>
+
+<!-- Conteúdo do modal -->
+<div  id="modalLogin" style="display: none;">
+  <form class="row g-3">
+    <div class="col-md-6">
+        <label class="form-label text-dark" for="usuario">Usuário:</label>
+        <input class="form-control border border-dark" type="text" id="usuario" name="usuario" required>
+    </div>
+    <div class="col-md-6">
+        <label class="form-label text-dark" for="senha">Senha:</label>
+        <input class="form-control border border-dark" type="password" id="senha" name="senha" required>
+    </div>
+    <div class="col-12">
+    <label for="inputAddress" class="form-label text-dark">Address</label>
+    <input type="text" class="form-control border border-black" id="inputAddress" ><br>
+  </div>
+    <button class="btn btn-primary" type="submit">Login</button>
+  </form>
+</div>
+
                         <a href="php/logout_php.php" class="btn btn-outline-danger ">Sair <span class="fs-5">(<?php echo $email ?>)</span></a>
 
                     </div>
@@ -176,6 +198,31 @@
     <script src="js/jquery.flexslider-min.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script src="iziModal.min.js" type="text/javascript"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Inicializa o modal
+    $("#modalLogin").iziModal({
+      title: 'Login',
+      headerColor: '#37474F',
+      width: 400,
+      closeButton: true,
+      overlayColor: 'rgba(0, 0, 0, 0.6)',
+      transitionIn: 'fadeInDown',
+      transitionOut: 'fadeOutDown',
+      iframe: false
+    });
+
+    // Abre o modal quando clicar no botão
+    $("#abrirModal").on("click", function() {
+      $("#modalLogin").iziModal("open");
+    });
+  });
+</script>
 
 </body>
 

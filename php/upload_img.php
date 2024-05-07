@@ -17,7 +17,7 @@ if(isset($_POST["id_restaurante"])) {
         // Atualiza o caminho da imagem na tabela restaurantes para o restaurante específico
         $sql = "UPDATE restaurantes SET foto_restaurante = '$caminho_db' WHERE id_restaurante = $id_restaurante";
         if ($conn->query($sql) === TRUE) {
-            echo "Imagem enviada com sucesso.";
+            header("Location: ../restaurante.php?id=$id_restaurante");
         } else {
             echo "Erro ao enviar imagem: " . $conn->error;
         }
