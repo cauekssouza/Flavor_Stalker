@@ -73,3 +73,13 @@ CREATE TABLE avaliacao (
     FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante),
     FOREIGN KEY (id_prato) REFERENCES prato(id_prato)
 );
+
+CREATE TABLE favoritos (
+    id_user INT,
+    id_restaurante INT,
+    PRIMARY KEY(id_user, id_restaurante),
+    FOREIGN KEY (id_user) REFERENCES usuarios(id_user),
+    FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
+);
+
+select * from favoritos;

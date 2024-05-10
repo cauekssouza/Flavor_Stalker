@@ -151,7 +151,8 @@
 				<p>Somos a equipe 11 de experiemcia criativa, com posta por:
 					Caue, Joao Pedro, Kael, Lucas Rodrigues e Lucas Zacarias.
 				</p>
-				<p><a href="contato.php" class="btn btn-primary btn-outline">Contato</a></p>
+				<a href="contato.php" class="btn btn-primary btn-outline">Contato</a>
+				<a href="about.php" class="btn btn-primary btn-outline">Sobre nós</a>
 			</div>
 		</div>
 	</div>
