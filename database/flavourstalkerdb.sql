@@ -98,6 +98,18 @@ VALUES
 SELECT * FROM restaurantes;
 
 -- -----------------------------------------------------
+-- Favoritos
+-- -----------------------------------------------------
+
+CREATE TABLE favoritos (
+    id_user INT,
+    id_restaurante INT,
+    PRIMARY KEY(id_user, id_restaurante),
+    FOREIGN KEY (id_user) REFERENCES usuarios(id_user),
+    FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
+);
+
+-- -----------------------------------------------------
 -- Prato
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS prato (
