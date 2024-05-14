@@ -19,7 +19,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #2b2d42;
+    background-color: #010317;
 }
 
 .content {
@@ -36,11 +36,11 @@ body {
 .content::before {
     position: absolute;
     content: "";
-    background-color: #fee440;
+    background-color: #ff0000;
     width: 40%;
     height: 100%;
     border-radius: 10px 0px 0px 10px;
-    color: #2b2d42;
+    color: #1b0117;
     animation: slidein 1s forwards;
 }
 
@@ -65,7 +65,7 @@ body {
 
 /* Form Styles */
 .icon-modify {
-    color: rgba(16, 199, 52, 0.6);
+    color: rgba(201, 0, 0, 0.868);
     padding: 0 10px;
 }
 
@@ -79,7 +79,7 @@ body {
 .form input {
     height: 35px;
     border: none;
-    background-color: #edf2f4;
+    background-color: #ffffff;
 }
 
 /* Button Styles */
@@ -92,8 +92,8 @@ body {
 }
 
 .btn:hover {
-    background-color: #124076;
-    color: #87A922;
+    background-color: #0073f6;
+    color: #ac0000;
 }
 
 .btn-primary {
@@ -102,8 +102,8 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: #9BCF53;
-    color:#15F5BA;  
+    background-color: #ae00fe;
+    color:#fffcf9;  
 }
 
 /* Input Styles */
@@ -156,7 +156,7 @@ input[type="password"]{
 button[type="submit"]{
     display: block;
     font-size: small;
-    color: #652;
-    background-color: yellow;
+    color: #000;
+    background-color: rgb(102, 0, 255);
 }
 
