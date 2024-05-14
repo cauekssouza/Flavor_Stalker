@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id_user = $_SESSION['id_user'];
 
         // atualiza o tipo de usuário para "Dono de Restaurante" (ID 2)
-        $sql_update_tipo = "UPDATE usuarios SET id_tipo = 2 WHERE id_user = $id_user";
+        $sql_update_tipo = "UPDATE usuarios SET id_tipo = 2 WHERE id_user = $id_user AND id_tipo = 2";
         if ($conn->query($sql_update_tipo) === TRUE) {
             $_SESSION['id_tipo'] = 2;
         }

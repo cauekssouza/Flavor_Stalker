@@ -20,6 +20,8 @@
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
 
+	<link rel="stylesheet" href="css/modal.css">
+
 	<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,600i,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
 
@@ -32,6 +34,11 @@
 
 	<link rel="stylesheet" href="css/style.css">
 
+    <link rel="stylesheet" href="iziModal.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
@@ -39,7 +46,6 @@
 
 <body>
 
-	<div class="fh5co-loader"></div>
 
 	<div id="page">
 		<nav class="fh5co-nav" role="navigation">
@@ -58,12 +64,7 @@
 							<li <?php if ($currentPage === 'restaurantes.php') : ?>class="active" <?php endif; ?>>
 								<a href="restaurantes.php">Restaurantes</a>
 							</li>
-							<li <?php if ($currentPage === 'about.php') : ?>class="active" <?php endif; ?>>
-								<a href="about.php">About</a>
-							</li>
-							<li <?php if ($currentPage === 'contato.php') : ?>class="active" <?php endif; ?>>
-								<a href="contato.php">Contato</a>
-							</li>
+
 							<?php
 							session_start();
 							if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {  // se o usuário estiver logado adiciona o botão de perfil

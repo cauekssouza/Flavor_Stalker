@@ -66,7 +66,16 @@ if (isset($_GET['id'])) { // verifica se o ID do restaurante foi fornecido na UR
                     $result->data_seek(0);
                     while ($row = $result->fetch_assoc()) {
                 ?>
+                        <form id="favoriteForm" action="php/favoritos_php.php" method="POST">
+                            <input type='hidden' name='restaurante_favorito' value='<?php echo $id_restaurante; ?>'>
+                            <button type="submit" id="favoriteButton" class="btn btn-danger">
+                                <i id="favoriteIcon" class="bi bi-heart"></i>
+                            </button>
+                        </form>
+
+
                         <h1 class="text-white"><?php echo $row["nome"] ?></h1>
+
                         <p class="fs-2 text-white"><?php echo $row["descricao"] ?></p>
                         Endereço: <?php echo $row["endereco"] ?><br>
                         Dono: <?php echo $row["dono"] ?><br>
@@ -138,6 +147,10 @@ if ($result_comentarios->num_rows > 0) {
 <script src="js/jquery.flexslider-min.js"></script>
 
 <script src="js/main.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+
 
 </body>
 
