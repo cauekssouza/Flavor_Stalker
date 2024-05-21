@@ -47,12 +47,12 @@
 
     session_start();
 
-    if (!isset($_SESSION['id_tipo']) || $_SESSION['id_tipo'] != 3) { // se o usuário não não for um administrador (ID 3), redireciona para a página de login
+    if (!isset($_SESSION['id_tipo']) || $_SESSION['id_tipo'] != 3) { // se o usuário não for um administrador (ID 3), redireciona para a página de login
         header("Location: login.php");
         exit();
     }
 
-    $sql = "SELECT id_restaurante, nome, dono FROM restaurantes";
+    $sql = "SELECT id_restaurante, nome, dono, foto_restaurante, descricao, estilo_culinario, id_proprietario FROM restaurantes WHERE status_restaurante_id_status = 2"; // 2 é o ID do status "Aguardando"
     $result = $conn->query($sql);
     ?>
 
@@ -65,14 +65,7 @@
         </nav>
         <h1 class="text-white">Restaurantes</h1>
         <table class="table table-hover border-dark table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Dono</th>
-                    <th scope="col">Deletar</th>
-                </tr>
-            </thead>
+
             <tbody class="table-group-divider ">
                 <?php
                 if ($result->num_rows > 0) { // verifica se encontrou algum restaurante
@@ -80,60 +73,65 @@
                         $id_restaurante = $row['id_restaurante'];
                 ?>
                         <tr>
-                            <th scope="row"><?php echo $id_restaurante ?></th>
-                            <td><?php echo $row['nome'] ?></td>
-                            <td><?php echo $row['dono'] ?></td>
-                            <td>
-                                <form action="php/restaurante_del_php.php" method="post">
-                                    <input type="hidden" name="id_restaurante" value="<?php echo $id_restaurante; ?>">
-                                    <button type="submit" class="btn-close" aria-label="Close"></button>
-                                </form>
+                            <div class="d-flex justify-content-center">
+                                <div class="card mb-5 text-bg-dark" style="--bs-bg-opacity: .4; width: 600px;">
+                                    <div class="card-header d-flex align-items-center justify-content-between" id="heading<?php echo $row["id_restaurante"]; ?>" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $row["id_restaurante"]; ?>" aria-expanded="true" aria-controls="collapse<?php echo $row["id_restaurante"]; ?>">
+                                        <div class="d-flex align-items-center">
+                                            <div class="col-md-4">
+                                                <img src="uploads/<?php echo $row["foto_restaurante"]; ?>" class="img-fluid rounded-start" alt="Foto do Restaurante" style="max-width: 100%; max-height:100px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h3 class="mb-1 card-title"><?php echo $row["nome"]; ?></h3>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <form name="formAprovar" method="POST" action="php/aprovar_restaurante.php">
+                                                <input type="hidden" name="id_restaurante" value="<?php echo $row["id_restaurante"]; ?>">
+                                                <button class="btn btn-success me-2 btn-sm">&#10004;</button>
+                                            </form>
+                                            <form name="formRejeitar" method="POST" action="php/rejeitar_restaurante.php">
+                                                <input type="hidden" name="id_restaurante" value="<?php echo $row["id_restaurante"]; ?>">
+                                                <button type="submit" name="rejeitar" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja rejeitar este restaurante?')">&#10006;</button>
+                                            </form>
+                                        </div>
 
-                            </td>
+                                    </div>
+
+                                    <div id="collapse<?php echo $row["id_restaurante"]; ?>" class="collapse" aria-labelledby="heading<?php echo $row["id_restaurante"]; ?>" data-bs-parent="#accordion">
+                                        <div class="card-body text-start">
+                                            <small class="card-text"><span class="badge text-bg-secondary rounded-pill"><?php echo $row["estilo_culinario"]; ?></span></small>
+                                            <p class="card-text mt-3"><?php echo $row["descricao"]; ?></p>
+                                            <p class="card-text text-end">Dono: <span class="fw-bold"><?php echo $row["dono"]; ?></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                         </tr>
                 <?php
                     }
                 } else {
-                    // se não houver usuários no banco de dados
-                    echo "<tr><td colspan='5'>Nenhum usuário encontrado</td></tr>";
+                    // se não houver restaurantes aguardando aprovação
+                    echo "<tr><td colspan='4'>Nenhum restaurante aguardando aprovação</td></tr>";
                 }
                 ?>
             </tbody>
         </table>
+
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <div class="gototop js-top">
         <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
     </div>
 
-
     <script src="js/jquery.min.js"></script>
-
     <script src="js/jquery.easing.1.3.js"></script>
-
     <script src="js/bootstrap.min.js"></script>
-
     <script src="js/jquery.waypoints.min.js"></script>
-
     <script src="js/jquery.stellar.min.js"></script>
-
     <script src="js/jquery.flexslider-min.js"></script>
-
     <script src="js/main.js"></script>
 
 </body>
