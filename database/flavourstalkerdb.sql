@@ -11,7 +11,7 @@ USE flavourstalkerdb;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS tipo_usuario (
   id_tipo INT NOT NULL AUTO_INCREMENT,
-  nome_tipo VARCHAR(255) NULL DEFAULT NULL,
+  nome_tipo VARCHAR(255) NULL DEFAULT 1,
   descricao TEXT NULL DEFAULT NULL,
   PRIMARY KEY (id_tipo))
 ENGINE = InnoDB
@@ -54,9 +54,15 @@ VALUES (3, 'Admin', 'Admin@123.com', '$2y$10$6COIqPqLnrKGXWkQ/U7AdeoFUd26p3.7B4u
 -- Status do restaurante
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS status_restaurante (
-  id_status INT NOT NULL,
+  id_status INT NOT NULL DEFAULT 2,
+  nome_status varchar(10),
   PRIMARY KEY (id_status))
 ENGINE = InnoDB;
+
+INSERT INTO `status_restaurante` (`id_status`, `nome_status`) VALUES
+(1, 'Aprovado'),
+(2, 'Aguardando'),
+(3, 'Recusado');
 
 -- -----------------------------------------------------
 -- Restaurantes
@@ -73,7 +79,7 @@ CREATE TABLE IF NOT EXISTS restaurantes (
   capacidade INT NULL DEFAULT NULL,
   telefone VARCHAR(20) NULL DEFAULT NULL,
   foto_restaurante MEDIUMBLOB NULL DEFAULT NULL,
-  status_restaurante_id_status INT NOT NULL,
+  status_restaurante_id_status INT NOT NULL DEFAULT 2,
   PRIMARY KEY (id_restaurante, status_restaurante_id_status),
   INDEX id_proprietario (id_proprietario),
   INDEX fk_restaurantes_status_restaurante1_idx (status_restaurante_id_status),
@@ -93,7 +99,8 @@ COLLATE = utf8mb4_general_ci;
 INSERT INTO restaurantes
 (nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone, foto_restaurante, status_restaurante_id_status)
 VALUES
-('Cantina Italiana', 'Rua das Flores, 123, Bairro Jardim', 'José Almeida', 'Italiano', 'A Cantina Italiana oferece uma experiência autêntica de culinária italiana, com uma seleção de pratos tradicionais preparados com ingredientes importados.', '12:00 - 23:00', 50, '1234-5678', "gallery_2.jpeg", 1);
+('Cantina Italiana', 'Rua das Flores, 123, Bairro Jardim', 'José Almeida', 'Italiano', 'A Cantina Italiana oferece uma experiência autêntica de culinária italiana, com uma seleção de pratos tradicionais preparados com ingredientes importados.', '12:00 - 23:00', 50, '1234-5678', "gallery_2.jpeg", 2),
+('Grill Master', 'Avenida Central, 456, Bairro Centro', 'Maria Oliveira', 'Churrasco', 'O Grill Master é o destino perfeito para os amantes de churrasco, oferecendo uma variedade de cortes de carne de alta qualidade preparados na brasa, além de acompanhamentos e sobremesas irresistíveis.', '11:00 - 22:00', 80, '9876-5432', "gallery_2.jpeg", 1);
 
 SELECT * FROM restaurantes;
 
@@ -142,7 +149,16 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Avaliacao
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS avaliacao (
+CREATE TABLE avaliacao (
+    id_avaliacao INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT,
+    id_restaurante INT,
+    comentario TEXT,
+    data_comentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_user) REFERENCES usuarios(id_user),
+    FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
+);
+/*CREATE TABLE IF NOT EXISTS avaliacao (
   id_avaliacao INT NOT NULL AUTO_INCREMENT,
   id_user INT NULL DEFAULT NULL,
   id_restaurante INT NULL DEFAULT NULL,
@@ -171,7 +187,7 @@ CREATE TABLE IF NOT EXISTS avaliacao (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_general_ci;
+COLLATE = utf8mb4_general_ci;*/
 
 
 -- -----------------------------------------------------
