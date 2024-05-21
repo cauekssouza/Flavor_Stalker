@@ -27,7 +27,7 @@
 						<?php
 						include("Conexão.php");
 
-						$sql = "SELECT id_restaurante, nome, endereco, descricao, estilo_culinario, foto_restaurante FROM restaurantes";
+						$sql = "SELECT id_restaurante, nome, endereco, descricao, estilo_culinario, foto_restaurante FROM restaurantes WHERE status_restaurante_id_status = 1";
 						$result = $conn->query($sql);
 
 						if ($result->num_rows > 0) { // verifica se encontrou algum restaurante
