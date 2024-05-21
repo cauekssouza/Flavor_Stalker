@@ -16,7 +16,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     vertical-align: baseline;
 }
 :focus { outline: 0;}
-a:link, a:visited, a:active{text-decoration:none; color: #21b3b4}
+a:link, a:visited, a:active{text-decoration:none; color: #EA272D}
 table {	border-collapse: separate;border-spacing: 0; width: 100%;}
 th, td {text-align: left; font-weight: normal;}
 tr{line-height: 30px;}
@@ -121,7 +121,7 @@ input, textarea, select, button {font-size: 100%;font-family: inherit;}
   padding: 0;
 }
 #modal-custom .iziModal-content section input:focus{
-    border-color:#28CA97;
+    border-color:#EA272D;
 }
 #modal-custom .iziModal-content section label[for="check"]{
     margin-bottom: 26px;
@@ -133,7 +133,7 @@ input, textarea, select, button {font-size: 100%;font-family: inherit;}
     overflow: hidden;
 }
 #modal-custom .iziModal-content section button{
-    background: #28CA97;
+    background: #EA272D;
     color: white;
     margin: 0;
     border: 0;
