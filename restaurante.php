@@ -1,3 +1,25 @@
+<style>
+    .rating-box {
+        display: flex;
+        align-items: center;
+    }
+
+    .stars {
+        display: flex;
+    }
+
+    .stars i {
+        font-size: 1.5em;
+        color: #ccc;
+        /* Unrated stars */
+        cursor: pointer;
+    }
+
+    .stars i.active {
+        color: gold;
+        /* Rated stars */
+    }
+</style>
 <?php
 include("includes/navbar.php");
 include("Conexão.php");
@@ -101,6 +123,26 @@ if (isset($_GET['id'])) { // verifica se o ID do restaurante foi fornecido na UR
 ?>
 
 
+<form method="POST" action="php/add_avaliacao.php">
+    <div class="rating-box">
+        <label for="rating">Avaliação:</label>
+        <div class="stars">
+            <i class="bi bi-star" data-rating="1"></i>
+            <i class="bi bi-star" data-rating="2"></i>
+            <i class="bi bi-star" data-rating="3"></i>
+            <i class="bi bi-star" data-rating="4"></i>
+            <i class="bi bi-star" data-rating="5"></i>
+        </div>
+    </div>
+    <input type="hidden" id="rating-value" name="rating-value" value="0">
+    <input type="hidden" id="id_restaurante" name="id_restaurante" value="<?php echo $id_restaurante; ?>">
+    <button type="submit" class="btn btn-primary mt-2">Enviar Avaliação</button>
+</form>
+
+<input type="hidden" id="rating-value" name="rating-value" value="0">
+
+
+
 <!-- comentario -->
 <div class="form-floating my-4">
     <form action="php/add_feedback.php" method="POST">
@@ -133,6 +175,21 @@ if ($result_comentarios->num_rows > 0) {
     <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
 </div>
 
+<script>
+    const stars = document.querySelectorAll('.stars i');
+    const ratingValue = document.getElementById('rating-value');
+
+    stars.forEach((star) => {
+        star.addEventListener('click', () => {
+            const rating = star.dataset.rating;
+            ratingValue.value = rating; // Update the hidden input value
+
+            stars.forEach((s, index) => {
+                s.classList.toggle('active', index < rating);
+            });
+        });
+    });
+</script>
 
 <script src="js/jquery.min.js"></script>
 

@@ -68,33 +68,34 @@ INSERT INTO `status_restaurante` (`id_status`, `nome_status`) VALUES
 -- Restaurantes
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS restaurantes (
-  id_restaurante INT NOT NULL AUTO_INCREMENT,
-  id_proprietario INT NULL DEFAULT NULL,
-  nome VARCHAR(255) NULL DEFAULT NULL,
-  endereco VARCHAR(255) NULL DEFAULT NULL,
-  dono VARCHAR(255) NULL DEFAULT NULL,
-  estilo_culinario VARCHAR(255) NULL DEFAULT NULL,
-  descricao TEXT NULL DEFAULT NULL,
-  horario VARCHAR(255) NULL DEFAULT NULL,
-  capacidade INT NULL DEFAULT NULL,
-  telefone VARCHAR(20) NULL DEFAULT NULL,
-  foto_restaurante MEDIUMBLOB NULL DEFAULT NULL,
-  status_restaurante_id_status INT NOT NULL DEFAULT 2,
-  PRIMARY KEY (id_restaurante, status_restaurante_id_status),
-  INDEX id_proprietario (id_proprietario),
-  INDEX fk_restaurantes_status_restaurante1_idx (status_restaurante_id_status),
-  CONSTRAINT restaurantes_ibfk_1
-    FOREIGN KEY (id_proprietario)
-    REFERENCES usuarios (id_user),
-  CONSTRAINT fk_restaurantes_status_restaurante1
-    FOREIGN KEY (status_restaurante_id_status)
-    REFERENCES status_restaurante (id_status)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
+    id_restaurante INT NOT NULL AUTO_INCREMENT,
+    id_proprietario INT NULL DEFAULT NULL,
+    nome VARCHAR(255) NULL DEFAULT NULL,
+    endereco VARCHAR(255) NULL DEFAULT NULL,
+    dono VARCHAR(255) NULL DEFAULT NULL,
+    estilo_culinario VARCHAR(255) NULL DEFAULT NULL,
+    descricao TEXT NULL DEFAULT NULL,
+    horario VARCHAR(255) NULL DEFAULT NULL,
+    capacidade INT NULL DEFAULT NULL,
+    telefone VARCHAR(20) NULL DEFAULT NULL,
+    foto_restaurante MEDIUMBLOB NULL DEFAULT NULL,
+    status_restaurante_id_status INT NOT NULL DEFAULT 2,
+    PRIMARY KEY (id_restaurante),
+    INDEX id_proprietario (id_proprietario),
+    INDEX fk_restaurantes_status_restaurante1_idx (status_restaurante_id_status),
+    CONSTRAINT restaurantes_ibfk_1
+        FOREIGN KEY (id_proprietario)
+        REFERENCES usuarios (id_user),
+    CONSTRAINT fk_restaurantes_status_restaurante1
+        FOREIGN KEY (status_restaurante_id_status)
+        REFERENCES status_restaurante (id_status)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+) ENGINE = InnoDB
 AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_general_ci;
+
 
 INSERT INTO restaurantes
 (nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone, foto_restaurante, status_restaurante_id_status)
@@ -140,11 +141,15 @@ COLLATE = utf8mb4_general_ci;
 -- -----------------------------------------------------
 -- Tabela de notas
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS nota (
-  id_nota INT NOT NULL,
-  PRIMARY KEY (id_nota))
-ENGINE = InnoDB;
-
+	CREATE TABLE nota (
+		id_user INT NOT NULL,
+		id_restaurante INT NOT NULL,
+		id_nota INT NOT NULL,
+		PRIMARY KEY (id_restaurante, id_user),
+		FOREIGN KEY (id_user) REFERENCES usuarios(id_user),
+		FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
+	);
+select * from nota;
 
 -- -----------------------------------------------------
 -- Avaliacao
