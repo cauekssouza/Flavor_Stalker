@@ -1,48 +1,53 @@
 <!DOCTYPE html>
-<html lang="pt-Br">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="css/cadastro.css">
+    <title>Registrar</title>
+    <!-- Incluindo estilos da navbar -->
+    <?php include("includes/navbar.php"); ?>
 </head>
 
 <body>
-    <div class="container">
-        <div class="content">
-            <div class="first-content">
-                <div class="first-colunn">
-                    <h2 class="tittle"><i class="fa-solid fa-right-to-bracket"></i>Cadastro</h2>
-                    <i class="fa-solid fa-heart"></i>
-                    <?php session_start();
-                    if (isset($_SESSION["error"])) { // verifica se existe uma mensagem de erro
-                        echo '
-                            <div class="w3-panel w3-pale-red w3-border">
-                                <p>'  . $_SESSION["error"] . '</p>
-                            </div>
-                        ';
-                        unset($_SESSION["error"]);
-                    }
-                    ?>
-                    <div class="form">
-                        <form method="POST" id="cadastroForm" action="php/cadastrar_php.php" onsubmit="entrar(); return false;">
-                            <input type="text" name="txtNome" id="nome" placeholder="Nome do Usuário" pattern="^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)*$" title="Digite um nome válido" required>
-                            <input type="email" name="txtEmail" id="email" placeholder="Digite seu Email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" title="Digite um email válido" required>
-                            <input type="password" name="txtSenha" id="senha" placeholder="Crie uma Senha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um número, uma letra minúscula e uma letra maiúscula" required>
-                            <button type="submit" id="idcadastrar" name="cadastrar">Cadastrar</button>
-                        </form>
+
+    <br><br><br><br><br>
+
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="row align-items-center g-lg-5 py-5">
+            <div class="col-lg-7 text-center text-lg-start">
+                <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Crie uma conta nova</h1>
+                <p class="col-lg-10 fs-4">Estamos felizes que você decidiu se juntar à nossa comunidade!</p>
+            </div>
+            <div class="col-md-10 mx-auto col-lg-5">
+                <?php
+                if (isset($_SESSION["error"])) {
+                    echo '<div class="alert alert-danger" role="alert">' . $_SESSION["error"] . '</div>';
+
+                    unset($_SESSION["error"]);
+                }
+                ?>
+                <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary text-dark" name="formRegister" method="POST" action="php/cadastrar_php.php" onsubmit="entrar(); return false;">
+
+                    <div class="mb-3">
+                        <label for="floatingInput">Nome</label>
+                        <input type="txt" class="form-control" id="floatingInput" placeholder="Nome do usuario" name="txtNome" autocomplete="off" pattern="^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)*$" title="Digite um nome válido" required>
                     </div>
-                    <button class="btn-primary" onclick="window.location.href='login.php'">Voltar</button>
-                </div>
+
+                    <div class="mb-3">
+                        <label for="floatingInput">Email</label>
+                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="txtEmail" autocomplete="off" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" title="Digite um email válido" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="floatingPassword">Senha</label>
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Senha" name="txtSenha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um número, uma letra minúscula e uma letra maiúscula" required>
+                    </div>
+
+                    <button class="w-100 btn btn-lg btn-primary" type="submit" name="cadastrar">Criar conta</button>
+                    <hr class="my-4">
+                    <a href="login.php" class="text-body-secondary">ou Entre como cliente já cadastrado</a>
+                </form>
             </div>
         </div>
     </div>
-    <?php
-    include("Conexão.php");
-    ?>
-</body>
-
-</html>
