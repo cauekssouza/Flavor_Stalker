@@ -52,7 +52,10 @@
         exit();
     }
 
-    $sql = "SELECT id_restaurante, nome, dono, foto_restaurante, descricao, estilo_culinario, id_proprietario FROM restaurantes WHERE status_restaurante_id_status = 2"; // 2 é o ID do status "Aguardando"
+    $sql = "SELECT r.id_restaurante, r.nome, r.foto_restaurante, r.descricao, r.estilo_culinario, r.id_proprietario, u.nome_user
+        FROM restaurantes r
+        JOIN usuarios u ON r.id_proprietario = u.id_user
+        WHERE status_restaurante_id_status = 2";
     $result = $conn->query($sql);
     ?>
 
@@ -101,7 +104,8 @@
                                         <div class="card-body text-start">
                                             <small class="card-text"><span class="badge text-bg-secondary rounded-pill"><?php echo $row["estilo_culinario"]; ?></span></small>
                                             <p class="card-text mt-3"><?php echo $row["descricao"]; ?></p>
-                                            <p class="card-text text-end">Dono: <span class="fw-bold"><?php echo $row["dono"]; ?></span></p>
+                                            <p class="card-text text-end">Dono: <span class="fw-bold"><?php echo $row["nome_user"]; ?></span></p>
+
                                         </div>
                                     </div>
                                 </div>
