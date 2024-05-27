@@ -2,16 +2,23 @@
 include("../Conexão.php");
 session_start();
 
-if (isset($_POST['rating-value'])) {
+if (isset($_POST['rating-value']) && isset($_POST['comentario'])) {
     $rating = $_POST['rating-value'];
-    $idRestaurante = $_POST['id_restaurante'];
-    $idUser = $_SESSION['id_user'];
+    $id_restaurante = $_POST['id_restaurante'];
+    $id_user = $_SESSION['id_user'];
+    $comentario = $_POST['comentario'];
 
-    $sqlAvaliacao = "INSERT INTO nota (id_user, id_restaurante, id_nota)
-    VALUES ($idUser, $idRestaurante, $rating)
-    ON DUPLICATE KEY UPDATE id_nota = $rating;
-    ";
+    // 1. Inserir avaliação na tabela avaliacao
+    $sqlAvaliacao = "INSERT INTO avaliacao (id_user, id_restaurante, comentario) VALUES ($id_user, $id_restaurante, '$comentario')";
     $conn->query($sqlAvaliacao);
+    $idAvaliacao = $conn->insert_id; // Obter o ID da avaliação inserida
 
-    echo "Avaliação enviada com sucesso!";
+    // 2. Inserir nota na tabela nota
+    $sqlNota = "INSERT INTO nota (id_user, id_restaurante, id_nota) VALUES ($id_user, $id_restaurante, $rating) ON DUPLICATE KEY UPDATE id_nota = $rating";
+    $conn->query($sqlNota);
+
+    echo "Avaliação e comentário enviados com sucesso!";
+
+    header("Location: ../restaurante.php?id=$id_restaurante");
 }
+?>
