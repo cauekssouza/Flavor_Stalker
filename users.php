@@ -56,8 +56,6 @@
         right: 10px;
         cursor: pointer;
     }
-
-
 </style>
 <br><br><br><br><br>
 <div id="page">
@@ -113,23 +111,38 @@
                         <button data-iziModal-close class="icon-close" style="color: black;">x</button>
                         <a href="" id="signin" class="active" style="color: white;">Cadastrar Restaurante</a>
                         <section>
-                            <form method="POST" action="php/cad_restaurante_php.php" class="restaurante">
-                                <input type="text" placeholder="Nome do Restaurante" name="nome" required style="color: black;">
-                                <input type="text" placeholder="Endereço" name="endereco" required style="color: black;">
-                                <input type="text" placeholder="Dono" name="dono" required style="color: black;">
-                                <input type="tel" placeholder="Telefone" name="telefone" required style="color: black;">
-                                <input type="text" placeholder="Estilo Culinário" name="estilo_culinario" required style="color: black;">
-                                <input type="text" placeholder="Descrição" name="descricao" required style="color: black;">
-                                <input type="time" placeholder="Horário de Funcionamento" name="horario" required style="color: black;">
-                                <input type="number" placeholder="Capacidade" name="capacidade" required style="color: black;">
-                                <button onclick="validar()">Enviar</button> <!-- adiciona a função de validação -->
-                                <button onclick="window.location.href='users.php'">Voltar</button>
+                            <form method="POST" action="php/cad_restaurante_php.php" class="restaurante row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="Nome do Restaurante" name="nome" required style="color: black;">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="Dono" name="dono" required style="color: black;">
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="Endereço" name="endereco" required style="color: black;">
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="tel" placeholder="Telefone" name="telefone" required style="color: black;">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" placeholder="Capacidade" name="capacidade" required style="color: black;">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="time" placeholder="Horário de Funcionamento" name="horario" required style="color: black;">
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="Estilo Culinário" name="estilo_culinario" required style="color: black;">
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="Descrição" name="descricao" required style="color: black;">
+                                </div>
+                                <footer>
+                                    <button data-iziModal-close class="modal-button cancel">Voltar</button>
+                                    <button onclick="validar()">Enviar</button> <!-- adiciona a função de validação -->
+                                </footer>
                             </form>
+
                             <script src="valida.js"></script>
-                            <footer>
-                                <button data-iziModal-close class="modal-button cancel">Cancel</button>
-                                <button class="modal-button submit">Log in</button>
-                            </footer>
                         </section>
                     </div>
 
