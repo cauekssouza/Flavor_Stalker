@@ -90,7 +90,8 @@
                 ?>
 
                 <div class="d-grid gap-2">
-                    <button class="trigger-custom btn btn-primary w-100" data-izimodal-open="#modal-custom">Cadastrar Restaurante</button>
+                    <!-- <button class="trigger-custom btn btn-primary w-100" data-izimodal-open="#modal-custom">Cadastrar Restaurante</button> -->
+                    <a href="./cad_restaurante.php" class="text-white btn btn-primary w-100">Cadastrar Restaurante</a>
                     <?php
                     // verifica se o usuário está logado
                     if (isset($_SESSION['id_user'])) {
@@ -107,44 +108,36 @@
 
 
 
-                    <div id="modal-custom" data-iziModal-group="grupo1">
+                    <!-- <div id="modal-custom" data-iziModal-group="grupo1">
                         <button data-iziModal-close class="icon-close" style="color: black;">x</button>
                         <a href="" id="signin" class="active" style="color: white;">Cadastrar Restaurante</a>
                         <section>
-                            <form method="POST" action="php/cad_restaurante_php.php" class="restaurante row g-3">
-                                <div class="col-md-6">
-                                    <input type="text" placeholder="Nome do Restaurante" name="nome" required style="color: black;">
+                            <form method="POST" action="php/" class="restaurante row g-3 text-black">
+                                <div class="col-md-12 ">
+                                    <input type="text" placeholder="Razão Social" name="razao_social" required>
+                                    <input type="text" placeholder="CNPJ" name="cnpj" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="text" placeholder="Dono" name="dono" required style="color: black;">
+                                <div class="col-md-12">
+                                    <input type="text" placeholder="Nome Fantasia (opcional)" name="nome_fantasia">
+                                    <input type="text" placeholder="Inscrição Estadual (se aplicável)" name="inscricao_estadual">
                                 </div>
-                                <div>
-                                    <input type="text" placeholder="Endereço" name="endereco" required style="color: black;">
+
+                                <div class="col-md-12">
+                                    <input type="text" placeholder="Licença Sanitária" name="licenca_sanitaria" required>
                                 </div>
-                                <div class="col-md-5">
-                                    <input type="tel" placeholder="Telefone" name="telefone" required style="color: black;">
+                                <div class="col-md-12">
+                                    <input type="text" placeholder="Alvará de Funcionamento" name="alvara_funcionamento" required>
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="number" placeholder="Capacidade" name="capacidade" required style="color: black;">
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="time" placeholder="Horário de Funcionamento" name="horario" required style="color: black;">
-                                </div>
-                                <div>
-                                    <input type="text" placeholder="Estilo Culinário" name="estilo_culinario" required style="color: black;">
-                                </div>
-                                <div>
-                                    <input type="text" placeholder="Descrição" name="descricao" required style="color: black;">
-                                </div>
+
                                 <footer>
                                     <button data-iziModal-close class="modal-button cancel">Voltar</button>
-                                    <button onclick="validar()">Enviar</button> <!-- adiciona a função de validação -->
+                                    <button type="submit">Enviar para Aprovação</button>
                                 </footer>
-                            </form>
 
+                            </form>
                             <script src="valida.js"></script>
                         </section>
-                    </div>
+                    </div> -->
 
 
                     <a href="php/logout_php.php" class="">Sair <span class="fs-5">(<?php echo $email ?>)</span></a>
