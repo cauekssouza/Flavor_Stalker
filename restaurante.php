@@ -44,7 +44,9 @@ if (isset($_GET['id'])) {
     .prato-item {
         font-family: 'Cormorant Garamond', serif;
     }
-    input, textarea {
+
+    input,
+    textarea {
         font-family: 'Cormorant Garamond', serif;
     }
 
@@ -57,6 +59,7 @@ if (isset($_GET['id'])) {
         outline: 0;
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
+
     .rating-box {
         display: flex;
         align-items: center;
@@ -80,6 +83,7 @@ if (isset($_GET['id'])) {
 <br><br><br><br><br><br>
 <div id="page">
     <div class="m-5">
+        
         <?php if ($modoEdicao) : ?>
             <form action="php/atualizar_restaurante.php" method="post" enctype="multipart/form-data" id="restauranteForm">
                 <input type="hidden" name="id_restaurante" value="<?php echo $id_restaurante; ?>">
@@ -112,6 +116,21 @@ if (isset($_GET['id'])) {
                             <textarea class="form-control" id="descricao" name="descricao" rows="3" required><?php echo $row["descricao"]; ?></textarea>
                         </div>
                     <?php else : ?>
+                        <small class="card-text">
+                            <?php
+                            // Consulta para obter a média de avaliações do restaurante (SEM prepared statement)
+                            $sqlMedia = "SELECT AVG(id_nota) AS media FROM nota WHERE id_restaurante = " . $row["id_restaurante"];
+                            $resultMedia = $conn->query($sqlMedia);
+
+                            if ($resultMedia->num_rows > 0) {
+                                $rowMedia = $resultMedia->fetch_assoc();
+                                $mediaAvaliacoes = number_format($rowMedia['media'], 1);
+                                echo "<span class='badge text-bg-warning rounded-pill ms-2'>&#9733; $mediaAvaliacoes</span>";
+                            } else {
+                                echo "<span class='badge text-bg-secondary rounded-pill ms-2'>Sem avaliações</span>";
+                            }
+                            ?>
+                        </small>
                         <div class="d-flex align-items-center">
                             <h1 class="text-white ms-2"><?php echo $row["nome"]; ?></h1>
                             <form id="favoriteForm" action="php/favoritos_php.php" method="POST">
@@ -126,7 +145,7 @@ if (isset($_GET['id'])) {
 
                     <div id="cardapio-container" class="list-group">
                         <?php if ($resultPratos->num_rows > 0) : ?>
-                            <h4 class="text-white">Cardápio:</h4>
+                            <h4 class="text-white  mt-5">Cardápio:</h4>
                             <?php
                             $pratoCount = 0;
                             while ($prato = $resultPratos->fetch_assoc()) :
@@ -136,10 +155,9 @@ if (isset($_GET['id'])) {
                                     <div class="d-flex gap-2 w-100 justify-content-between">
                                         <div>
                                             <?php if ($modoEdicao) : ?>
-                                                <input type="text" class="form-control prato-item prato-nome" placeholder="Nome do Prato" name="pratos[<?php echo $pratoCount; ?>][nome]" value="<?php echo $prato['nome']; ?>">
-                                                <input type="text" class="form-control prato-item prato-paragrafo" placeholder="Ingredientes" name="pratos[<?php echo $pratoCount; ?>][ingredientes]" value="<?php echo $prato['ingredientes']; ?>">
-
-
+                                                <input type="hidden" name="pratos[<?php echo $prato['id_prato']; ?>][id_prato]" value="<?php echo $prato['id_prato']; ?>">
+                                                <input type="text" class="form-control prato-item prato-nome" placeholder="Nome do Prato" name="pratos[<?php echo $prato['id_prato']; ?>][nome]" value="<?php echo $prato['nome']; ?>" required>
+                                                <input type="text" class="form-control prato-item prato-paragrafo" placeholder="Ingredientes" name="pratos[<?php echo $prato['id_prato']; ?>][ingredientes]" value="<?php echo $prato['ingredientes']; ?>" required>
                                             <?php else : ?>
                                                 <h3 class="text-white mb-0"><?php echo $prato['nome']; ?></h3>
                                                 <p class="mb-0 opacity-75"><?php echo $prato['ingredientes']; ?></p>
@@ -148,7 +166,7 @@ if (isset($_GET['id'])) {
                                         <div>
                                             <?php if ($modoEdicao) : ?>
                                                 <div class="prato-preco-wrapper">
-                                                    <input type="number" step="0.01" class="form-control prato-item prato-paragrafo prato-preco" placeholder="Preço" name="pratos[<?php echo $pratoCount; ?>][preco]" value="<?php echo isset($prato['preco']) ? $prato['preco'] : ''; ?>">
+                                                    <input type="number" step="0.01" class="form-control prato-item prato-paragrafo prato-preco" placeholder="Preço" name="pratos[<?php echo $prato['id_prato']; ?>][preco]" value="<?php echo $prato['preco']; ?>" required>
                                                 </div>
                                                 <button type="button" class="btn btn-danger mt-1" onclick="removerPrato(this)">Remover</button>
                                             <?php else : ?>
@@ -228,6 +246,9 @@ if (isset($_GET['id'])) {
                             <label for="telefone" class="form-label text-white">Telefone:</label>
                             <input type="tel" class="form-control" id="telefone" name="telefone" value="<?php echo $row["telefone"]; ?>" required>
                         </div>
+                        <div class="mt-5 d-flex justify-content-center">
+                            <button type="button" class="btn btn-danger mt-2 ms-2" onclick="confirmarDelecao()">Deletar Restaurante</button>
+                        </div>
                     <?php else : ?>
                         <div class="mb-3">
                             <p class="text-white"><strong>Endereço:</strong> <?php echo $row["endereco"]; ?></p>
@@ -272,34 +293,38 @@ if (isset($_GET['id'])) {
         document.addEventListener('DOMContentLoaded', function() {
             const addPratoButton = document.getElementById('add-prato');
             const cardapioContainer = document.getElementById('cardapio-container');
+            let pratoCount = <?php echo $resultPratos->num_rows; ?>;
 
             addPratoButton.addEventListener('click', function() {
+                pratoCount++;
                 const newPrato = document.createElement('div');
                 newPrato.className = 'list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark text-white mb-0';
                 newPrato.style = '--bs-bg-opacity: .4;';
                 newPrato.setAttribute('aria-current', 'true');
 
                 newPrato.innerHTML = `
-            <div class="d-flex gap-2 w-100 justify-content-between">
-                <div>
-                    <input type="text" class="form-control prato-item prato-nome" placeholder="Nome do Prato" name="pratos[new][nome]" value="">
-                    <input type="text" class="form-control prato-item prato-paragrafo" placeholder="Ingredientes" name="pratos[new][ingredientes]" value="">
-                </div>
-                <div>
-                    <div class="prato-preco-wrapper">
-                        <input type="number" step="0.01" class="form-control prato-item prato-paragrafo prato-preco" placeholder="Preço" name="pratos[new][preco]" value="">
-                    </div>
-                    <button type="button" class="btn btn-danger mt-1" onclick="removerPrato(this)">Remover</button>
-                </div>
+        <div class="d-flex gap-2 w-100 justify-content-between">
+            <div>
+                <input type="text" class="form-control prato-item prato-nome" placeholder="Nome do Prato" name="pratos[new_${pratoCount}][nome]" value="" required>
+                <input type="text" class="form-control prato-item prato-paragrafo" placeholder="Ingredientes" name="pratos[new_${pratoCount}][ingredientes]" value="" required>
             </div>
-        `;
+            <div>
+                <div class="prato-preco-wrapper">
+                    <input type="number" step="0.01" class="form-control prato-item prato-paragrafo prato-preco" placeholder="Preço" name="pratos[new_${pratoCount}][preco]" value="" required>
+                </div>
+                <button type="button" class="btn btn-danger mt-1" onclick="removerPrato(this)">Remover</button>
+            </div>
+        </div>
+    `;
 
                 cardapioContainer.insertBefore(newPrato, addPratoButton);
             });
         });
 
-        function removerPrato(button) {
-            button.closest('.list-group-item').remove();
+        function confirmarDelecao() {
+            if (confirm('Tem certeza que deseja deletar este restaurante? Esta ação não pode ser desfeita.')) {
+                window.location.href = 'php/deletar_restaurante.php?id=<?php echo $id_restaurante; ?>';
+            }
         }
     </script>
 
