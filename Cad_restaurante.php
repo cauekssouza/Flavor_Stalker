@@ -9,17 +9,6 @@ if (!isset($_SESSION['id_user'])) {
 }
 ?>
 <style>
-    input[type="text"],
-    input[type="number"],
-    input[type="tel"] {
-        font-family: "Arial", sans-serif;
-        /* Exemplo com a fonte Arial */
-    }
-
-    textarea[name="descricao"] {
-        font-family: "Sua Fonte", sans-serif;
-    }
-
     /* Estilos para inputs */
     .prato-item {
         border: none;
@@ -82,11 +71,29 @@ if (!isset($_SESSION['id_user'])) {
         background-color: #333;
         outline: none;
     }
+
+    .form-control:focus {
+        background-color: #24292e;
+        color: white;
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .form-control,
+    .prato-item {
+        font-family: 'Cormorant Garamond', serif;
+    }
+
+    input,
+    textarea {
+        font-family: 'Cormorant Garamond', serif;
+    }
 </style>
 <br><br><br><br><br><br>
 <div id="page">
     <div class="container mt-5">
-        <form action="php/cad_restaurante_php.php" method="post" enctype="multipart/form-data">
+        <form action="php/cad_restaurante_php.php" id="restauranteForm" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id_restaurante" value="<?php echo $id_restaurante; ?>">
 
             <div class="row">
@@ -148,7 +155,7 @@ if (!isset($_SESSION['id_user'])) {
                 </div>
             </div>
             <div class="mt-5 d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">Enviar para Aprovação</button>
+                <button type="submit" class="btn btn-primary" id="enviarBtn">Enviar para Aprovação</button>
             </div>
         </form>
     </div>
@@ -221,6 +228,26 @@ if (!isset($_SESSION['id_user'])) {
             this.value = 'R$ ' + value;
         });
     });
+
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', function(event) {
+        const pratoNomes = document.querySelectorAll('.prato-nome');
+        let pratoPreenchido = false;
+
+        pratoNomes.forEach(pratoNome => {
+            if (pratoNome.value.trim() !== '') {
+                pratoPreenchido = true;
+            }
+        });
+
+        if (!pratoPreenchido) {
+            alert('É necessário cadastrar pelo menos um prato no cardápio.');
+            event.preventDefault(); // Evita o envio do formulário
+        }
+    });
+
+
 </script>
 
 
