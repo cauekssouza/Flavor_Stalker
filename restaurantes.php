@@ -41,8 +41,23 @@
 										<div class="col-md-8">
 											<div class="card-body">
 												<div class="d-flex w-100 justify-content-between">
-													<h3 class="mb-1 card-title"><?php echo $row["nome"]; ?></h3>
-													<small class="card-text"><span class="badge text-bg-secondary rounded-pill"><?php echo $row["estilo_culinario"]; ?></span></small>
+													<div class="d-flex align-items-center">
+														<h3 class="mb-1 card-title"><?php echo $row["nome"]; ?></h3>
+														<small class="card-text ms-2">
+															<?php
+															// Consulta para obter a média de avaliações do restaurante (SEM prepared statement)
+															$sqlMedia = "SELECT AVG(id_nota) AS media FROM nota WHERE id_restaurante = " . $row["id_restaurante"];
+															$resultMedia = $conn->query($sqlMedia);
+
+															if ($resultMedia->num_rows > 0) {
+																$rowMedia = $resultMedia->fetch_assoc();
+																$mediaAvaliacoes = number_format($rowMedia['media'], 1);
+																echo "<span class='badge text-bg-warning rounded-pill'>&#9733; $mediaAvaliacoes</span>";
+															}
+															?>
+														</small>
+													</div>
+													<small class="card-text"><span class="badge text-bg-secondary rounded-pill estilo"><?php echo $row["estilo_culinario"]; ?></span></small>
 												</div>
 												<p class="card-text mt-3"><?php echo $row["descricao"]; ?></p>
 												<a class="icon-link-hover" href="restaurante.php?id=<?php echo $row["id_restaurante"]; ?>" style="--bs-link-hover-color-rgb: 25, 135, 84;">
