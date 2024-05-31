@@ -66,7 +66,9 @@
 							</li>
 
 							<?php
-							session_start();
+							if (session_status() == PHP_SESSION_NONE) {
+								session_start();
+							}
 							if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {  // se o usuário estiver logado adiciona o botão de perfil
 								$user = $_SESSION['email'];
 							?>
