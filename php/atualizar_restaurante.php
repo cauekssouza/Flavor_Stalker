@@ -47,6 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
+        // Remover os pratos marcados para remoção
+        if (isset($_POST['remover_pratos']) && !empty($_POST['remover_pratos'])) {
+            $remover_pratos = json_decode($_POST['remover_pratos'], true);
+            foreach ($remover_pratos as $id_prato) {
+                $sqlDeletePrato = "DELETE FROM prato WHERE id_prato=$id_prato";
+                $conn->query($sqlDeletePrato);
+            }
+        }
+
         // Redireciona para a página do restaurante após a atualização
         header("Location: ../restaurante.php?id=$id_restaurante");
         exit();
