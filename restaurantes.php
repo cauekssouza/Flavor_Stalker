@@ -1,5 +1,14 @@
 <?php include("includes/navbar.php"); ?>
 
+<style>
+	input,
+	textarea,
+	option,
+	select {
+		font-family: 'Cormorant Garamond', serif;
+	}
+</style>
+
 <header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner" style="background-image: url(images/hero_1.jpeg);" data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="container">
@@ -23,15 +32,66 @@
 				<h2>Restaurantes</h2>
 				<div class="row">
 					<div class="col-md-12">
+						<i class="bi bi-filter"></i>Filtrar
+
+						<form method="GET" action="" class="mb-5">
+							<div class="row">
+								<div class="col-md-4">
+									<label for="estilo_culinario">Estilo Culinário:</label>
+									<select name="estilo_culinario" id="estilo_culinario" class="form-control">
+										<option value="">Todos</option>
+										<option value="italiana">Italiana</option>
+										<option value="japonesa">Japonesa</option>
+										<option value="brasileira">Brasileira</option>
+										<option value="chinesa">Chinesa</option>
+										<option value="mexicana">Mexicana</option>
+										<option value="indiana">Indiana</option>
+										<option value="tailandesa">Tailandesa</option>
+										<option value="francesa">Francesa</option>
+										<option value="mediterranea">Mediterrânea</option>
+										<option value="arabe">Árabe</option>
+									</select>
+								</div>
+								<div class="col-md-4">
+									<label for="ordem">Ordenar por:</label>
+									<select name="ordem" id="ordem" class="form-control">
+										<option value="nome">Nome</option>
+										<option value="nota">Nota</option>
+									</select>
+								</div>
+								<div class="col-md-4">
+									<label>&nbsp;</label>
+									<button type="submit" class="btn btn-primary btn-block">Filtrar</button>
+								</div>
+							</div>
+						</form>
+
+
 
 						<?php
 						include("Conexão.php");
 
-						$sql = "SELECT id_restaurante, nome, endereco, descricao, estilo_culinario, foto_restaurante FROM restaurantes WHERE status_restaurante_id_status = 1";
+						$estilo_culinario = isset($_GET['estilo_culinario']) ? $_GET['estilo_culinario'] : '';
+						$ordem = isset($_GET['ordem']) ? $_GET['ordem'] : 'nome';
+
+						$sql = "SELECT id_restaurante, nome, endereco, descricao, estilo_culinario, foto_restaurante
+								FROM restaurantes
+								WHERE status_restaurante_id_status = 1";
+
+						if ($estilo_culinario != '') {
+							$sql .= " AND estilo_culinario = '$estilo_culinario'";
+						}
+
+						if ($ordem == 'nota') {
+							$sql .= " ORDER BY (SELECT AVG(id_nota) FROM nota WHERE nota.id_restaurante = restaurantes.id_restaurante) DESC";
+						} else {
+							$sql .= " ORDER BY nome";
+						}
+
 						$result = $conn->query($sql);
 
-						if ($result->num_rows > 0) { // verifica se encontrou algum restaurante
-							while ($row = $result->fetch_assoc()) { // percorre todos os restaurantes encontrados e exibe na tela
+						if ($result->num_rows > 0) {
+							while ($row = $result->fetch_assoc()) {
 						?>
 								<div href="#" class="card mb-3 text-bg-dark " style="--bs-bg-opacity: .4;">
 									<div class="row g-0">
