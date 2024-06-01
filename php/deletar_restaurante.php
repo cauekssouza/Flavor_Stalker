@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
     }
 
     // Redireciona para a página principal após a exclusão
-    header("Location: ../index.php");
+    header("Location: ../restaurantes.php");
     exit();
 } else {
     echo "ID do restaurante não fornecido.";
