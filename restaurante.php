@@ -87,6 +87,7 @@ if (isset($_GET['id'])) {
         <?php if ($modoEdicao) : ?>
             <form action="php/atualizar_restaurante.php" method="post" enctype="multipart/form-data" id="restauranteForm">
                 <input type="hidden" name="id_restaurante" value="<?php echo $id_restaurante; ?>">
+                <input type="hidden" id="remover_pratos" name="remover_pratos" value="">
             <?php endif; ?>
             <div class="row m-5">
                 <div class="col-md-3">
@@ -176,9 +177,9 @@ if (isset($_GET['id'])) {
                                     </div>
                                 </div>
                             <?php endwhile; ?>
-                            <?php if ($modoEdicao) : ?>
-                                <button type="button" class="btn btn-secondary" id="add-prato">Adicionar Prato</button>
-                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if ($modoEdicao) : ?>
+                            <button type="button" class="btn btn-secondary" id="add-prato">Adicionar Prato</button>
                         <?php endif; ?>
                     </div>
 
@@ -247,15 +248,16 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="mb-3">
                             <label for="horario" class="form-label text-white">Horário de Funcionamento:</label>
-                            <input type="text" class="form-control" id="horario" name="horario" value="<?php echo $row["horario"]; ?>" required>
+                            <input type="text" class="form-control" id="horario" name="horario" value="<?php echo $row["horario"]; ?>" placeholder="Ex: 08:00 - 18:00" pattern="^([01]\d|2[0-3]):([0-5]\d)\s*-\s*([01]\d|2[0-3]):([0-5]\d)$" title="O horário deve estar no formato 08:00 - 18:00" required>
+
                         </div>
                         <div class="mb-3">
                             <label for="capacidade" class="form-label text-white">Capacidade:</label>
-                            <input type="number" class="form-control" id="capacidade" name="capacidade" value="<?php echo $row["capacidade"]; ?>" required>
+                            <input type="number" class="form-control" id="capacidade" name="capacidade" value="<?php echo $row["capacidade"] ?? ''; ?>" pattern="[0-9]+" title="Apenas números são permitidos" min="1" required>
                         </div>
                         <div class="mb-3">
                             <label for="telefone" class="form-label text-white">Telefone:</label>
-                            <input type="tel" class="form-control" id="telefone" name="telefone" value="<?php echo $row["telefone"]; ?>" required>
+                            <input type="tel" class="form-control" id="telefone" name="telefone" value="<?php echo $row["telefone"] ?? ''; ?>" pattern="\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}" title="Formato: (99) 9999-9999 ou (99) 99999-9999" required>
                         </div>
                         <div class="mt-5 d-flex justify-content-center">
                             <button type="button" class="btn btn-danger mt-2 ms-2" onclick="confirmarDelecao()">Deletar Restaurante</button>
@@ -297,15 +299,62 @@ if (isset($_GET['id'])) {
     <?php endif; ?>
 
 
-    <div class="gototop js-top">
-        <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
-    </div>
+
 
     <script>
+        const stars = document.querySelectorAll('.stars i');
+        const ratingValue = document.getElementById('rating-value');
+
+        stars.forEach((star) => {
+            star.addEventListener('click', () => {
+                const rating = star.dataset.rating;
+                ratingValue.value = rating; // Update the hidden input value
+
+                stars.forEach((s, index) => {
+                    s.classList.toggle('active', index < rating);
+                });
+            });
+        });
+
+        const telefoneInput = document.getElementById('telefone');
+        telefoneInput.addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+            if (value.length > 11) {
+                value = value.slice(0, 11); // Limita o tamanho para 11 dígitos
+            }
+            this.value = value.replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
+            const horarioInput = document.getElementById('horario');
+
+            horarioInput.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+                if (value.length > 8) {
+                    value = value.slice(0, 8); // Limita o tamanho para 8 dígitos (HH:MMHH:MM)
+                }
+                this.value = value.replace(/(\d{2})(\d{2})(\d{2})(\d{2})/, '$1:$2 - $3:$4'); // Aplica a máscara
+            });
+
             const addPratoButton = document.getElementById('add-prato');
             const cardapioContainer = document.getElementById('cardapio-container');
             let pratoCount = <?php echo $resultPratos->num_rows; ?>;
+            const removerPratosInput = document.getElementById('remover_pratos');
+            let removerPratos = [];
+
+            window.removerPrato = function(button) {
+                const pratoDiv = button.closest('.list-group-item');
+                const idPratoInput = pratoDiv.querySelector('input[name*="[id_prato]"]');
+
+                if (idPratoInput) {
+                    const idPrato = idPratoInput.value;
+                    if (idPrato !== '0') { // Se id_prato é diferente de zero, adicione à lista de remoção
+                        removerPratos.push(idPrato);
+                        removerPratosInput.value = JSON.stringify(removerPratos);
+                    }
+                }
+                pratoDiv.remove();
+            }
 
             addPratoButton.addEventListener('click', function() {
                 pratoCount++;
@@ -315,19 +364,21 @@ if (isset($_GET['id'])) {
                 newPrato.setAttribute('aria-current', 'true');
 
                 newPrato.innerHTML = `
-        <div class="d-flex gap-2 w-100 justify-content-between">
-            <div>
-                <input type="text" class="form-control prato-item prato-nome" placeholder="Nome do Prato" name="pratos[new_${pratoCount}][nome]" value="" required>
-                <input type="text" class="form-control prato-item prato-paragrafo" placeholder="Ingredientes" name="pratos[new_${pratoCount}][ingredientes]" value="" required>
-            </div>
-            <div>
-                <div class="prato-preco-wrapper">
-                    <input type="number" step="0.01" class="form-control prato-item prato-paragrafo prato-preco" placeholder="Preço" name="pratos[new_${pratoCount}][preco]" value="" required>
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <input type="hidden" name="pratos[new_${pratoCount}][id_prato]" value="0">
+                    <input type="text" class="form-control prato-item prato-nome" placeholder="Nome do Prato" name="pratos[new_${pratoCount}][nome]" value="" required>
+                    <input type="text" class="form-control prato-item prato-paragrafo" placeholder="Ingredientes" name="pratos[new_${pratoCount}][ingredientes]" value="" required>
                 </div>
-                <button type="button" class="btn btn-danger mt-1" onclick="removerPrato(this)">Remover</button>
+                <div>
+                    <div class="prato-preco-wrapper">
+                        <input type="number" step="0.01" class="form-control prato-item prato-paragrafo prato-preco" placeholder="Preço" name="pratos[new_${pratoCount}][preco]" value="" required>
+                    </div>
+                    <button type="button" class="btn btn-danger mt-1" onclick="removerPrato(this)">Remover</button>
+                </div>
             </div>
-        </div>
-    `;
+
+        `;
 
                 cardapioContainer.insertBefore(newPrato, addPratoButton);
             });
