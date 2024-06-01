@@ -1,13 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <!-- Incluindo estilos da navbar -->
     <?php include("includes/navbar.php"); ?>
+    <style>
+        .form-control {
+            font-family: 'Cormorant Garamond', serif;
+            color: black;
+        }
+    </style>
 </head>
+
 <body>
     <!-- Conteúdo da página -->
     <br><br><br><br><br>
@@ -18,26 +25,22 @@
                 <p class="col-lg-10 fs-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam deserunt quas optio voluptatum nobis pariatur, est amet, adipisci perspiciatis sapiente nihil excepturi numquam laborum repellat alias corporis ea veritatis quisquam?</p>
             </div>
             <div class="col-md-10 mx-auto col-lg-5">
-            <?php
-                if(isset($_SESSION["error"])) {
+                <?php
+                if (isset($_SESSION["error"])) {
                     echo '<div class="alert alert-danger" role="alert">' . $_SESSION["error"] . '</div>';
                     unset($_SESSION["error"]);
                 }
-            ?>
+                ?>
                 <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary text-dark" name="formLogin" method="POST" action="php/login_php.php">
                     <div class="mb-3">
                         <label for="floatingInput" class="form-label">Email</label>
-                        <input type="email" class="form-control form-control-lg" id="floatingInput" placeholder="name@example.com" name="txtEmail"  autocomplete="off">
+                        <input type="email" class="form-control form-control-lg" id="floatingInput" placeholder="name@example.com" name="txtEmail" autocomplete="off">
                     </div>
                     <div class="mb-3">
                         <label for="floatingPassword" class="form-label">Senha</label>
                         <input type="password" class="form-control form-control-lg" id="floatingPassword" placeholder="Password" name="txtSenha">
                     </div>
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me" name="chkRemember"> Remember me
-                        </label>
-                    </div>
+
                     <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
                     <hr class="my-4">
                     <a href="cadastrar.php" class="text-body-secondary">Crie uma conta nova</a>
@@ -46,4 +49,5 @@
         </div>
     </div>
 </body>
+
 </html>

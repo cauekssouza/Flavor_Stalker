@@ -1,12 +1,23 @@
-<?php include("../Conexão.php");
+<?php
+include("../Conexão.php");
 
 session_start();
 
 $nome  = $_POST["txtNome"];
 $email = $_POST["txtEmail"];
 $senha = $_POST["txtSenha"];
+$senhaConfirm = $_POST["txtSenhaConfirm"];
 
-$senha = password_hash($senha, PASSWORD_DEFAULT); // criptografa a senha antes de salvar no banco
+// Verifica se as senhas correspondem antes de criptografá-las
+if ($senha != $senhaConfirm) {
+    // Senhas não correspondem, redireciona de volta com uma mensagem de erro
+    $_SESSION["error"] = "As senhas não correspondem. Por favor, tente novamente.";
+    header("Location: ../cadastrar.php");
+    exit;
+}
+
+// criptografa a senha após a validação
+$senha = password_hash($senha, PASSWORD_DEFAULT);
 
 $sql = "SELECT * FROM usuarios WHERE email = '$email'";
 $result = $conn->query($sql);

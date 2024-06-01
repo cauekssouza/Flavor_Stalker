@@ -7,6 +7,12 @@
     <title>Registrar</title>
     <!-- Incluindo estilos da navbar -->
     <?php include("includes/navbar.php"); ?>
+    <style>
+        .form-control {
+            font-family: 'Cormorant Garamond', serif;
+            color: black;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,7 +29,6 @@
                 <?php
                 if (isset($_SESSION["error"])) {
                     echo '<div class="alert alert-danger" role="alert">' . $_SESSION["error"] . '</div>';
-
                     unset($_SESSION["error"]);
                 }
                 ?>
@@ -31,7 +36,7 @@
 
                     <div class="mb-3">
                         <label for="floatingInput">Nome</label>
-                        <input type="txt" class="form-control" id="floatingInput" placeholder="Nome do usuario" name="txtNome" autocomplete="off" pattern="^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)*$" title="Digite um nome válido" required>
+                        <input type="text" class="form-control text-black" id="floatingInput" placeholder="Nome do usuário" name="txtNome" autocomplete="off" pattern="^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)*$" title="Digite um nome válido" required>
                     </div>
 
                     <div class="mb-3">
@@ -42,6 +47,11 @@
                     <div class="mb-3">
                         <label for="floatingPassword">Senha</label>
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Senha" name="txtSenha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um número, uma letra minúscula e uma letra maiúscula" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="floatingPasswordConfirm">Confirmar Senha</label>
+                        <input type="password" class="form-control" id="floatingPasswordConfirm" placeholder="Confirmar Senha" name="txtSenhaConfirm" required>
                     </div>
 
                     <button class="w-100 btn btn-lg btn-primary" type="submit" name="cadastrar">Criar conta</button>

@@ -154,15 +154,15 @@ if (!isset($_SESSION['id_user'])) {
                     </div>
                     <div class="mb-3">
                         <label for="horario" class="form-label text-white">Horário de Funcionamento:</label>
-                        <input type="text" class="form-control" id="horario" name="horario" required>
+                        <input type="text" class="form-control" id="horario" name="horario" value="<?php echo $row["horario"]; ?>" placeholder="Ex: 08:00 - 18:00" pattern="^([01]\d|2[0-3]):([0-5]\d)\s*-\s*([01]\d|2[0-3]):([0-5]\d)$" title="O horário deve estar no formato 08:00 - 18:00" required>
                     </div>
                     <div class="mb-3">
                         <label for="capacidade" class="form-label text-white">Capacidade:</label>
-                        <input type="number" class="form-control" id="capacidade" name="capacidade" required>
+                        <input type="number" class="form-control" id="capacidade" name="capacidade" value="<?php echo $row["capacidade"] ?? ''; ?>" pattern="[0-9]+" title="Apenas números são permitidos" min="1" required>
                     </div>
                     <div class="mb-3">
                         <label for="telefone" class="form-label text-white">Telefone:</label>
-                        <input type="tel" class="form-control" id="telefone" name="telefone" required>
+                        <input type="tel" class="form-control" id="telefone" name="telefone" value="<?php echo $row["telefone"] ?? ''; ?>" pattern="\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}" title="Formato: (99) 9999-9999 ou (99) 99999-9999" required>
                     </div>
                 </div>
             </div>
@@ -188,6 +188,16 @@ if (!isset($_SESSION['id_user'])) {
 </div>
 
 <script>
+    const horarioInput = document.getElementById('horario');
+
+    horarioInput.addEventListener('input', function() {
+        let value = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (value.length > 7) {
+            value = value.slice(0, 7); // Limita o tamanho para 7 dígitos (HH:MMHH:MM)
+        }
+        this.value = value.replace(/(\d{2})(\d{2})(\d{2})/, '$1:$2 - $3:'); // Aplica a máscara
+    });
+
     const cardapioContainer = document.getElementById('cardapio-container');
     const addPratoButton = document.getElementById('add-prato');
     let pratoCount = 0;
