@@ -1,5 +1,6 @@
 <?php
 include("../Conexão.php");
+session_start();
 
 if (isset($_POST['id_restaurante'])) {
     $id_restaurante = $_POST['id_restaurante'];
@@ -11,6 +12,7 @@ if (isset($_POST['id_restaurante'])) {
     $sql = "DELETE FROM restaurantes WHERE id_restaurante = $id_restaurante";
 
     if ($conn->query($sql) === TRUE) {
+        $_SESSION['notificacao'] = "Restaurante rejeitado e excluído com sucesso!";
         header("Location: ../restaurantes_list.php");
     } else {
         echo "Erro ao excluir restaurante: " . $conn->error;
@@ -18,3 +20,5 @@ if (isset($_POST['id_restaurante'])) {
 } else {
     echo "ID do restaurante não fornecido.";
 }
+
+$conn->close();

@@ -1,4 +1,10 @@
-<?php include("includes/navbar.php"); ?>
+<?php
+ob_start();
+include("includes/navbar.php");
+?>
+
+
+
 <style>
     #modal-custom {
         background-color: #1a1a1a;
@@ -62,16 +68,15 @@
     <div class="container text-center mt-5">
 
         <?php
-        if (isset($_SESSION['id_user'])) {  // se o usuário estiver logado
-            $id_user = $_SESSION['id_user'];
-            $id_tipo = $_SESSION['id_tipo'];
-            $nome_user = $_SESSION['nome_user'];
-            $email = $_SESSION['email'];
-            $data_criacao = $_SESSION['data_criacao'];
-        } else {
-            header("Location: login.php");
+        if (!isset($_SESSION['id_user'])) {  // se o usuário estiver logado
+            header("Location: ./login.php");
             exit();
         }
+        $id_user = $_SESSION['id_user'];
+        $id_tipo = $_SESSION['id_tipo'];
+        $nome_user = $_SESSION['nome_user'];
+        $email = $_SESSION['email'];
+        $data_criacao = $_SESSION['data_criacao'];
         ?>
 
         <div class="row gx-5">
@@ -193,6 +198,21 @@
         </div>
 
 
+
+        <?php
+        if (isset($_SESSION['notificacao'])) {
+            echo "<script>
+    Swal.fire({
+        title: 'Notificação',
+        text: '{$_SESSION['notificacao']}',
+        icon: 'info',
+        confirmButtonText: 'Ok'
+    });
+    </script>";
+            unset($_SESSION['notificacao']);
+        }
+        ob_end_flush(); // Envia o buffer de saída
+        ?>
 
 
 

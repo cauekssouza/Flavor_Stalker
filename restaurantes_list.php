@@ -36,6 +36,9 @@
 
     <script src="js/modernizr-2.6.2.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 </head>
 
 <body>
@@ -87,18 +90,21 @@
                                                 <h3 class="mb-1 card-title"><?php echo $row["nome"]; ?></h3>
                                             </div>
                                         </div>
+
+
                                         <div class="d-flex">
-                                            <form name="formAprovar" method="POST" action="php/aprovar_restaurante.php">
+                                            <form name="formAprovar" method="POST" action="php/aprovar_restaurante.php" onsubmit="return confirmarAcao(event, 'aprovar')">
                                                 <input type="hidden" name="id_restaurante" value="<?php echo $row["id_restaurante"]; ?>">
-                                                <button class="btn btn-success me-2 btn-sm">&#10004;</button>
+                                                <button type="submit" class="btn btn-success me-2 btn-sm">&#10004;</button>
                                             </form>
-                                            <form name="formRejeitar" method="POST" action="php/rejeitar_restaurante.php">
+                                            <form name="formRejeitar" method="POST" action="php/rejeitar_restaurante.php" onsubmit="return confirmarAcao(event, 'rejeitar')">
                                                 <input type="hidden" name="id_restaurante" value="<?php echo $row["id_restaurante"]; ?>">
-                                                <button type="submit" name="rejeitar" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja rejeitar este restaurante?')">&#10006;</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">&#10006;</button>
                                             </form>
                                         </div>
 
                                     </div>
+
 
                                     <div id="collapse<?php echo $row["id_restaurante"]; ?>" class="collapse" aria-labelledby="heading<?php echo $row["id_restaurante"]; ?>" data-bs-parent="#accordion">
                                         <div class="card-body text-start">
@@ -129,6 +135,41 @@
     <div class="gototop js-top">
         <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
     </div>
+
+    <script>
+        function confirmarAcao(event, acao) {
+            event.preventDefault();
+            const form = event.target;
+
+            let titulo = '';
+            let texto = '';
+            if (acao === 'aprovar') {
+                titulo = 'Aprovar Restaurante';
+                texto = 'Tem certeza que deseja aprovar este restaurante?';
+            } else if (acao === 'rejeitar') {
+                titulo = 'Rejeitar Restaurante';
+                texto = 'Tem certeza que deseja rejeitar este restaurante?';
+            }
+
+            Swal.fire({
+                title: titulo,
+                text: texto,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, confirmar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Envia o formulário após confirmação
+                }
+            });
+        }
+
+        // Remova o código que adiciona eventos de clique aos botões
+    </script>
+
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.easing.1.3.js"></script>
