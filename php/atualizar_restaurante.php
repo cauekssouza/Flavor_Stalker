@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Redireciona para a página do restaurante após a atualização
-        header("Location: ../visualizar_restaurante.php?id=$id_restaurante");
+        header("Location: ../restaurante.php?id=$id_restaurante");
         exit();
     } else {
         echo "Erro ao atualizar restaurante: " . $conn->error;

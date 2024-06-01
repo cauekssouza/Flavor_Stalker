@@ -83,7 +83,7 @@ if (isset($_GET['id'])) {
 <br><br><br><br><br><br>
 <div id="page">
     <div class="m-5">
-        
+
         <?php if ($modoEdicao) : ?>
             <form action="php/atualizar_restaurante.php" method="post" enctype="multipart/form-data" id="restauranteForm">
                 <input type="hidden" name="id_restaurante" value="<?php echo $id_restaurante; ?>">
@@ -132,7 +132,7 @@ if (isset($_GET['id'])) {
                             ?>
                         </small>
                         <div class="d-flex align-items-center">
-                            <h1 class="text-white ms-2"><?php echo $row["nome"]; ?></h1>
+                            <h1 class="text-white ms-2 text-break"><?php echo $row["nome"]; ?></h1>
                             <form id="favoriteForm" action="php/favoritos_php.php" method="POST">
                                 <input type='hidden' name='restaurante_favorito' value='<?php echo $id_restaurante; ?>'>
                                 <button type="submit" id="favoriteButton" class="btn btn-danger btn-sm">
@@ -232,7 +232,18 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="mb-3">
                             <label for="estilo" class="form-label text-white">Estilo:</label>
-                            <input type="text" class="form-control" id="estilo" name="estilo" value="<?php echo $row["estilo_culinario"]; ?>" required>
+                            <select class="form-control" id="estilo" name="estilo_culinario" required>
+                                <option value="Italiana" <?php if ($row["estilo_culinario"] == "Italiana") echo "selected"; ?>>Italiana</option>
+                                <option value="Japonesa" <?php if ($row["estilo_culinario"] == "Japonesa") echo "selected"; ?>>Japonesa</option>
+                                <option value="Chinesa" <?php if ($row["estilo_culinario"] == "Chinesa") echo "selected"; ?>>Chinesa</option>
+                                <option value="Brasileira" <?php if ($row["estilo_culinario"] == "Brasileira") echo "selected"; ?>>Brasileira</option>
+                                <option value="Mexicana" <?php if ($row["estilo_culinario"] == "Mexicana") echo "selected"; ?>>Mexicana</option>
+                                <option value="Indiana" <?php if ($row["estilo_culinario"] == "Indiana") echo "selected"; ?>>Indiana</option>
+                                <option value="Tailandesa" <?php if ($row["estilo_culinario"] == "Tailandesa") echo "selected"; ?>>Tailandesa</option>
+                                <option value="Francesa" <?php if ($row["estilo_culinario"] == "Francesa") echo "selected"; ?>>Francesa</option>
+                                <option value="Mediterrânea" <?php if ($row["estilo_culinario"] == "Mediterrânea") echo "selected"; ?>>Mediterrânea</option>
+                                <option value="Árabe" <?php if ($row["estilo_culinario"] == "Árabe") echo "selected"; ?>>Árabe</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="horario" class="form-label text-white">Horário de Funcionamento:</label>
@@ -267,6 +278,7 @@ if (isset($_GET['id'])) {
                         </div>
                     <?php endif; ?>
                 </div>
+
             </div>
 
             <?php if ($modoEdicao) : ?>

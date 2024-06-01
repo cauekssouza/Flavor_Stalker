@@ -138,7 +138,19 @@ if (!isset($_SESSION['id_user'])) {
                     </div>
                     <div class="mb-3">
                         <label for="estilo_culinario" class="form-label text-white">Estilo Culinário:</label>
-                        <input type="text" class="form-control" id="estilo_culinario" name="estilo_culinario" required>
+                        <select class="form-control" id="estilo_culinario" name="estilo_culinario" required>
+                            <option value="" disabled selected>Selecione um estilo</option>
+                            <option value="Italiana">Italiana</option>
+                            <option value="Japonesa">Japonesa</option>
+                            <option value="Chinesa">Chinesa</option>
+                            <option value="Brasileira">Brasileira</option>
+                            <option value="Mexicana">Mexicana</option>
+                            <option value="Indiana">Indiana</option>
+                            <option value="Tailandesa">Tailandesa</option>
+                            <option value="Francesa">Francesa</option>
+                            <option value="Mediterrânea">Mediterrânea</option>
+                            <option value="Árabe">Árabe</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="horario" class="form-label text-white">Horário de Funcionamento:</label>
@@ -246,8 +258,6 @@ if (!isset($_SESSION['id_user'])) {
             event.preventDefault(); // Evita o envio do formulário
         }
     });
-
-
 </script>
 
 
