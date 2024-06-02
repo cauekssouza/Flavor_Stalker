@@ -78,6 +78,34 @@ if (isset($_GET['id'])) {
     .stars i.active {
         color: gold;
     }
+
+    .comentario {
+        border-left: 2px solid #ccc;
+        /* Borda lateral cinza */
+        padding: 5px;
+        margin-bottom: 15px;
+        /* Fundo cinza claro */
+    }
+
+    .comentario blockquote {
+        font-style: italic;
+        /* Texto em itálico */
+        margin: 0;
+    }
+
+    .comentario .nota {
+        font-weight: bold;
+        /* Nota em negrito */
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .comentario .autor {
+        font-size: smaller;
+        /* Nome do autor menor */
+        color: #777;
+        /* Cinza mais escuro */
+    }
 </style>
 
 <br><br><br><br><br><br>
@@ -183,48 +211,69 @@ if (isset($_GET['id'])) {
                         <?php endif; ?>
                     </div>
 
+                    <!-- Para comentar se logue no site -->
+
                     <?php if (!$modoEdicao) : ?>
-                        <form method="POST" action="php/add_avaliacao.php" id="ratingForm">
-                            <div class="rating-box mt-5">
-                                <label for="rating">Avaliação:</label>
-                                <div class="stars">
-                                    <i class="bi bi-star" data-rating="1"></i>
-                                    <i class="bi bi-star" data-rating="2"></i>
-                                    <i class="bi bi-star" data-rating="3"></i>
-                                    <i class="bi bi-star" data-rating="4"></i>
-                                    <i class="bi bi-star" data-rating="5"></i>
+                        <?php if (isset($_SESSION['id_user'])) : ?>
+                            <form method="POST" action="php/add_avaliacao.php" id="ratingForm">
+                                <div class="rating-box mt-5">
+                                    <label for="rating">Avaliação:</label>
+                                    <div class="stars">
+                                        <i class="bi bi-star" data-rating="1"></i>
+                                        <i class="bi bi-star" data-rating="2"></i>
+                                        <i class="bi bi-star" data-rating="3"></i>
+                                        <i class="bi bi-star" data-rating="4"></i>
+                                        <i class="bi bi-star" data-rating="5"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <input type="hidden" id="rating-value" name="rating-value" value="0">
-                            <input type="hidden" id="id_restaurante" name="id_restaurante" value="<?php echo $id_restaurante; ?>">
+                                <input type="hidden" id="rating-value" name="rating-value" value="0">
+                                <input type="hidden" id="id_restaurante" name="id_restaurante" value="<?php echo $id_restaurante; ?>">
 
-                            <div class="form-floating my-4">
-                                <div>
-                                    <input type='hidden' name='id_restaurante' value='<?php echo $id_restaurante; ?>'>
-                                    <textarea class="form-control" name="comentario" placeholder="Adicione um comentário..." required></textarea>
-                                    <button class="btn btn-primary mt-2" type="submit" id="submit-avaliacao">Enviar</button>
+                                <div class="form-floating my-4">
+                                    <div>
+                                        <input type='hidden' name='id_restaurante' value='<?php echo $id_restaurante; ?>'>
+                                        <textarea class="form-control" name="comentario" placeholder="Adicione um comentário..." required></textarea>
+                                        <button class="btn btn-primary mt-2" type="submit" id="submit-avaliacao">Enviar</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
 
-                        <?php
-                        // consulta os comentários
-                        $sql_comentarios = "SELECT avaliacao.comentario, avaliacao.data_comentario, usuarios.email
-                                    FROM avaliacao
-                                    INNER JOIN usuarios ON avaliacao.id_user = usuarios.id_user
-                                    WHERE avaliacao.id_restaurante = $id_restaurante
-                                    ORDER BY avaliacao.data_comentario DESC";
-                        $result_comentarios = $conn->query($sql_comentarios);
 
-                        if ($result_comentarios->num_rows > 0) {
-                            while ($row_comentario = $result_comentarios->fetch_assoc()) {
-                                echo "<p><strong>" . $row_comentario['email'] . "</strong> (" . $row_comentario['data_comentario'] . "): " . $row_comentario['comentario'] . "</p>";
-                            }
-                        }
-                        ?>
+
+                            <!-- Exibe os comentários e notas -->
+                            <?php
+                            // Consulta os comentários e notas
+                            $sql_comentarios = "SELECT avaliacao.comentario, avaliacao.data_comentario, usuarios.email, nota.id_nota
+                            FROM avaliacao
+                            INNER JOIN usuarios ON avaliacao.id_user = usuarios.id_user
+                            LEFT JOIN nota ON avaliacao.id_user = nota.id_user AND avaliacao.id_restaurante = nota.id_restaurante
+                            WHERE avaliacao.id_restaurante = $id_restaurante
+                            ORDER BY avaliacao.data_comentario DESC";
+                            $result_comentarios = $conn->query($sql_comentarios);
+
+                            if ($result_comentarios->num_rows > 0) :
+                                while ($row_comentario = $result_comentarios->fetch_assoc()) :
+                            ?>
+                                    <div class="comentario">
+                                        <span class="nota">Nota: <?php echo $row_comentario['id_nota'] ?? 'Sem nota'; ?></span>
+                                        <blockquote><?php echo $row_comentario['comentario']; ?></blockquote>
+                                        <span class="autor">Feito por: <?php echo $row_comentario['email']; ?></span>
+                                    </div>
+                            <?php
+                                endwhile;
+                            else :
+                                echo "<p>Nenhum comentário ainda.</p>"; // Mensagem se não houver comentários
+                            endif;
+                            ?>
+
+                        <?php else : ?>
+                            <p>Para comentar, por favor <a href="login.php">faça login</a> no site.</p>
+                        <?php endif; ?>
                     <?php endif; ?>
 
                 </div>
+
+
                 <div class="col-md-3">
                     <?php if ($modoEdicao) : ?>
                         <div class="mb-3">
@@ -279,6 +328,11 @@ if (isset($_GET['id'])) {
                             <p class="text-white"><strong>Telefone:</strong> <?php echo $row["telefone"]; ?></p>
                         </div>
                     <?php endif; ?>
+                    <?php if (!$modoEdicao && isset($_SESSION['id_user']) && $_SESSION['id_user'] == $row['id_proprietario']) : ?>
+                        <div class="d-flex justify-content-end mt-3 me-5">
+                            <a href="?id=<?php echo $id_restaurante; ?>&edit=true" class="btn btn-warning text-dark">Editar</a>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
             </div>
@@ -286,24 +340,25 @@ if (isset($_GET['id'])) {
             <?php if ($modoEdicao) : ?>
                 <div class="mt-5 d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                    <a href="?id=<?php echo $id_restaurante; ?>" class="btn btn-secondary ms-2">Cancelar</a>
+                    <a href="?id=<?php echo $id_restaurante; ?>" class="btn btn-secondary text-white ms-2">Cancelar</a>
                 </div>
             </form>
         <?php endif; ?>
     </div>
 
-    <?php if (!$modoEdicao && isset($_SESSION['id_user']) && $_SESSION['id_user'] == $row['id_proprietario']) : ?>
-        <div class="d-flex justify-content-end mt-3 me-5">
-            <a href="?id=<?php echo $id_restaurante; ?>&edit=true" class="btn btn-warning">Editar</a>
-        </div>
-    <?php endif; ?>
+
 
 
 
 
     <script>
+
         const stars = document.querySelectorAll('.stars i');
         const ratingValue = document.getElementById('rating-value');
+        const submitButton = document.getElementById('submit-avaliacao');
+
+        submitButton.disabled = true;
+
 
         stars.forEach((star) => {
             star.addEventListener('click', () => {
@@ -312,6 +367,10 @@ if (isset($_GET['id'])) {
 
                 stars.forEach((s, index) => {
                     s.classList.toggle('active', index < rating);
+                    ratingValue.value = star.dataset.rating;
+
+                    // Habilita o botão somente se a avaliação for maior que 0
+                    submitButton.disabled = (ratingValue.value === '0');
                 });
             });
         });
