@@ -154,8 +154,9 @@ if (!isset($_SESSION['id_user'])) {
                     </div>
                     <div class="mb-3">
                         <label for="horario" class="form-label text-white">Horário de Funcionamento:</label>
-                        <input type="text" class="form-control" id="horario" name="horario" value="<?php echo $row["horario"]; ?>" placeholder="Ex: 08:00 - 18:00" pattern="^([01]\d|2[0-3]):([0-5]\d)\s*-\s*([01]\d|2[0-3]):([0-5]\d)$" title="O horário deve estar no formato 08:00 - 18:00" required>
+                        <input type="text" class="form-control" id="horario" name="horario" placeholder="Ex: 08:00 - 18:00" title="O horário deve estar no formato 0800 - 1800" required>
                     </div>
+
                     <div class="mb-3">
                         <label for="capacidade" class="form-label text-white">Capacidade:</label>
                         <input type="number" class="form-control" id="capacidade" name="capacidade" value="<?php echo $row["capacidade"] ?? ''; ?>" pattern="[0-9]+" title="Apenas números são permitidos" min="1" required>
@@ -191,12 +192,29 @@ if (!isset($_SESSION['id_user'])) {
     const horarioInput = document.getElementById('horario');
 
     horarioInput.addEventListener('input', function() {
-        let value = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-        if (value.length > 7) {
-            value = value.slice(0, 7); // Limita o tamanho para 7 dígitos (HH:MMHH:MM)
+        let value = this.value.replace(/\D/g, '');
+        if (value.length > 8) {
+            value = value.slice(0, 8);
         }
-        this.value = value.replace(/(\d{2})(\d{2})(\d{2})/, '$1:$2 - $3:'); // Aplica a máscara
+
+        if (value.length >= 5) {
+            this.value = value.replace(/(\d{2})(\d{2})(\d{2})/, '$1:$2 - $3:');
+        } else {
+            this.value = value;
+        }
     });
+
+    // Evento keydown para detectar o Backspace
+    horarioInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Backspace') {
+            // Remove a máscara antes de apagar o caractere
+            this.value = this.value.replace(/[-: ]/g, '');
+        }
+    });
+
+
+
+
 
     const cardapioContainer = document.getElementById('cardapio-container');
     const addPratoButton = document.getElementById('add-prato');
