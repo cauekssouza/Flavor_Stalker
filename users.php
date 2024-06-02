@@ -3,66 +3,6 @@ ob_start();
 include("includes/navbar.php");
 ?>
 
-
-
-<style>
-    #modal-custom {
-        background-color: #1a1a1a;
-        /* Fundo preto clarinho */
-        color: white;
-        /* Texto branco */
-        padding: 20px;
-        border-radius: 8px;
-    }
-
-    #modal-custom .modal-header {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    #modal-custom .modal-header a {
-        color: white;
-        text-decoration: none;
-        font-size: 1.5em;
-    }
-
-    #modal-custom .modal-input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #000;
-        /* Borda preta */
-        color: white;
-        background-color: #333;
-        /* Fundo dos inputs */
-        border-radius: 4px;
-    }
-
-    #modal-custom .modal-button {
-        background-color: red;
-        /* Botões vermelhos */
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        margin: 5px;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-
-    #modal-custom .modal-button.cancel {
-        background-color: darkred;
-        /* Botão Cancel mais escuro */
-    }
-
-    #modal-custom .icon-close {
-        color: white;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-    }
-</style>
 <br><br><br><br><br>
 <div id="page">
     <div class="container text-center mt-5">
