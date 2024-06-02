@@ -100,8 +100,8 @@ COLLATE = utf8mb4_general_ci;
 INSERT INTO restaurantes
 (nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone, foto_restaurante, status_restaurante_id_status)
 VALUES
-('Cantina Italiana', 'Rua das Flores, 123, Bairro Jardim', 'José Almeida', 'Italiano', 'A Cantina Italiana oferece uma experiência autêntica de culinária italiana, com uma seleção de pratos tradicionais preparados com ingredientes importados.', '12:00 - 23:00', 50, '1234-5678', "gallery_2.jpeg", 2),
-('Grill Master', 'Avenida Central, 456, Bairro Centro', 'Maria Oliveira', 'Churrasco', 'O Grill Master é o destino perfeito para os amantes de churrasco, oferecendo uma variedade de cortes de carne de alta qualidade preparados na brasa, além de acompanhamentos e sobremesas irresistíveis.', '11:00 - 22:00', 80, '9876-5432', "gallery_2.jpeg", 1);
+('Cantina Italiana', 'Rua das Flores, 123, Bairro Jardim', 'José Almeida', 'Italiana', 'A Cantina Italiana oferece uma experiência autêntica de culinária italiana, com uma seleção de pratos tradicionais preparados com ingredientes importados.', '12:00 - 23:00', 50, '1234-5678', "gallery_2.jpeg", 1),
+('Grill Master', 'Avenida Central, 456, Bairro Centro', 'Maria Oliveira', 'Brasileira', 'O Grill Master é o destino perfeito para os amantes de churrasco, oferecendo uma variedade de cortes de carne de alta qualidade preparados na brasa, além de acompanhamentos e sobremesas irresistíveis.', '11:00 - 22:00', 80, '9876-5432', "gallery_2.jpeg", 1);
 
 SELECT * FROM restaurantes;
 
