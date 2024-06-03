@@ -80,6 +80,8 @@ if (isset($_GET['id'])) {
     }
 
     .comentario {
+        background-color: rgba(0, 0, 0, 0.2);
+        color: #ccc;
         border-left: 2px solid #ccc;
         /* Borda lateral cinza */
         padding: 5px;
@@ -106,7 +108,15 @@ if (isset($_GET['id'])) {
         color: #777;
         /* Cinza mais escuro */
     }
+
+    .fonte-normal {
+        font-family: Arial, Helvetica, sans-serif;
+        /* ou outra fonte sem serifa */
+    }
 </style>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 <br><br><br><br><br><br>
 <div id="page">
@@ -122,7 +132,7 @@ if (isset($_GET['id'])) {
                     <?php if ($imagem_existente) : ?>
                         <img src="uploads/<?php echo $row["foto_restaurante"]; ?>" class="img-fluid rounded-start" alt="Foto do Restaurante" style="max-width: 100%; max-height: 300px;">
                         <?php if ($modoEdicao) : ?>
-                            <button type="button" class="btn btn-danger btn-sm mt-2" id="removerImagemBtn">Remover Imagem</button>
+                            <!-- <button type="button" class="btn btn-danger btn-sm mt-2" id="removerImagemBtn">Remover Imagem</button> -->
                         <?php endif; ?>
                     <?php elseif ($modoEdicao) : ?>
                         <div class="bg-dark text-white text-center p-3">
@@ -154,12 +164,16 @@ if (isset($_GET['id'])) {
                             if ($resultMedia->num_rows > 0) {
                                 $rowMedia = $resultMedia->fetch_assoc();
                                 $mediaAvaliacoes = number_format($rowMedia['media'], 1);
-                                echo "<span class='badge text-bg-warning rounded-pill ms-2'>&#9733; $mediaAvaliacoes</span>";
+                                echo "<span class='badge text-bg-warning rounded-pill ms-2 fs-4 fonte-normal'>&#9733; $mediaAvaliacoes</span>";
                             } else {
                                 echo "<span class='badge text-bg-secondary rounded-pill ms-2'>Sem avaliações</span>";
                             }
                             ?>
                         </small>
+                        <?php
+                        $usuarioLogado = isset($_SESSION['id_user']);
+                        ?>
+
                         <div class="d-flex align-items-center">
                             <h1 class="text-white ms-2 text-break"><?php echo $row["nome"]; ?></h1>
                             <form id="favoriteForm" action="php/favoritos_php.php" method="POST">
@@ -168,6 +182,11 @@ if (isset($_GET['id'])) {
                                     <i id="favoriteIcon" class="bi bi-heart"></i>
                                 </button>
                             </form>
+                        </div>
+
+                        <!-- Alerta do Bootstrap -->
+                        <div id="loginAlert" class="alert alert-danger d-none mt-3" role="alert">
+                            Você precisa estar logado para favoritar um restaurante.
                         </div>
                         <p class="fs-2 text-white text-break"><?php echo $row["descricao"]; ?></p>
                     <?php endif; ?>
@@ -347,12 +366,29 @@ if (isset($_GET['id'])) {
     </div>
 
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const usuarioLogado = <?php echo json_encode($usuarioLogado); ?>;
+            const favoriteForm = document.getElementById('favoriteForm');
+            const loginAlert = document.getElementById('loginAlert');
 
+            favoriteForm.addEventListener('submit', function(event) {
+                if (!usuarioLogado) {
+                    event.preventDefault();
+                    loginAlert.classList.remove('d-none');
 
+                    // Ocultar o alerta após 3 segundos
+                    setTimeout(function() {
+                        loginAlert.classList.add('d-none');
+                    }, 3000);
+                }
+            });
+        });
+    </script>
 
 
     <script>
-
+        // ! Script para dar rating ao restaurante
         const stars = document.querySelectorAll('.stars i');
         const ratingValue = document.getElementById('rating-value');
         const submitButton = document.getElementById('submit-avaliacao');
@@ -374,7 +410,10 @@ if (isset($_GET['id'])) {
                 });
             });
         });
+    </script>
 
+    <script>
+        // ! regex para validar o telefone
         const telefoneInput = document.getElementById('telefone');
         telefoneInput.addEventListener('input', function() {
             let value = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
@@ -384,45 +423,48 @@ if (isset($_GET['id'])) {
             this.value = value.replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const horarioInput = document.getElementById('horario');
 
-            horarioInput.addEventListener('input', function() {
-                let value = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-                if (value.length > 8) {
-                    value = value.slice(0, 8); // Limita o tamanho para 8 dígitos (HH:MMHH:MM)
-                }
-                this.value = value.replace(/(\d{2})(\d{2})(\d{2})(\d{2})/, '$1:$2 - $3:$4'); // Aplica a máscara
-            });
 
-            const addPratoButton = document.getElementById('add-prato');
-            const cardapioContainer = document.getElementById('cardapio-container');
-            let pratoCount = <?php echo $resultPratos->num_rows; ?>;
-            const removerPratosInput = document.getElementById('remover_pratos');
-            let removerPratos = [];
+        // ! regex para validar o horário
+        const horarioInput = document.getElementById('horario');
 
-            window.removerPrato = function(button) {
-                const pratoDiv = button.closest('.list-group-item');
-                const idPratoInput = pratoDiv.querySelector('input[name*="[id_prato]"]');
-
-                if (idPratoInput) {
-                    const idPrato = idPratoInput.value;
-                    if (idPrato !== '0') { // Se id_prato é diferente de zero, adicione à lista de remoção
-                        removerPratos.push(idPrato);
-                        removerPratosInput.value = JSON.stringify(removerPratos);
-                    }
-                }
-                pratoDiv.remove();
+        horarioInput.addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+            if (value.length > 8) {
+                value = value.slice(0, 8); // Limita o tamanho para 8 dígitos (HH:MMHH:MM)
             }
+            this.value = value.replace(/(\d{2})(\d{2})(\d{2})(\d{2})/, '$1:$2 - $3:$4'); // Aplica a máscara
+        });
 
-            addPratoButton.addEventListener('click', function() {
-                pratoCount++;
-                const newPrato = document.createElement('div');
-                newPrato.className = 'list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark text-white mb-0';
-                newPrato.style = '--bs-bg-opacity: .4;';
-                newPrato.setAttribute('aria-current', 'true');
+        // ! Logica para adicionar e remover pratos
+        const addPratoButton = document.getElementById('add-prato');
+        const cardapioContainer = document.getElementById('cardapio-container');
+        let pratoCount = <?php echo $resultPratos->num_rows; ?>;
+        const removerPratosInput = document.getElementById('remover_pratos');
+        let removerPratos = [];
 
-                newPrato.innerHTML = `
+        window.removerPrato = function(button) {
+            const pratoDiv = button.closest('.list-group-item');
+            const idPratoInput = pratoDiv.querySelector('input[name*="[id_prato]"]');
+
+            if (idPratoInput) {
+                const idPrato = idPratoInput.value;
+                if (idPrato !== '0') { // Se id_prato é diferente de zero, adicione à lista de remoção
+                    removerPratos.push(idPrato);
+                    removerPratosInput.value = JSON.stringify(removerPratos);
+                }
+            }
+            pratoDiv.remove();
+        }
+
+        addPratoButton.addEventListener('click', function() {
+            pratoCount++;
+            const newPrato = document.createElement('div');
+            newPrato.className = 'list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark text-white mb-0';
+            newPrato.style = '--bs-bg-opacity: .4;';
+            newPrato.setAttribute('aria-current', 'true');
+
+            newPrato.innerHTML = `
             <div class="d-flex gap-2 w-100 justify-content-between">
                 <div>
                     <input type="hidden" name="pratos[new_${pratoCount}][id_prato]" value="0">
@@ -439,9 +481,11 @@ if (isset($_GET['id'])) {
 
         `;
 
-                cardapioContainer.insertBefore(newPrato, addPratoButton);
-            });
+            cardapioContainer.insertBefore(newPrato, addPratoButton);
         });
+
+
+
 
         function confirmarDelecao() {
             if (confirm('Tem certeza que deseja deletar este restaurante? Esta ação não pode ser desfeita.')) {
