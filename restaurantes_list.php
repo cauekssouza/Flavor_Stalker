@@ -70,65 +70,59 @@
                 </svg></a>
         </nav>
         <h1 class="text-white">Restaurantes</h1>
-        <table class="table table-hover border-dark table-dark">
-
-            <tbody class="table-group-divider ">
-                <?php
-                if ($result->num_rows > 0) { // verifica se encontrou algum restaurante
-                    while ($row = $result->fetch_assoc()) { // percorre todos os restaurantes encontrados e exibe na tela
-                        $id_restaurante = $row['id_restaurante'];
-                ?>
-                        <tr>
-                            <div class="d-flex justify-content-center">
-                                <div class="card mb-5 text-bg-dark" style="--bs-bg-opacity: .4; width: 600px;">
-                                    <div class="card-header d-flex align-items-center justify-content-between" id="heading<?php echo $row["id_restaurante"]; ?>" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $row["id_restaurante"]; ?>" aria-expanded="true" aria-controls="collapse<?php echo $row["id_restaurante"]; ?>">
-                                        <div class="d-flex align-items-center">
-                                            <div class="col-md-4">
-                                                <img src="uploads/<?php echo $row["foto_restaurante"]; ?>" class="img-fluid rounded-start" alt="Foto do Restaurante" style="max-width: 100%; max-height:100px;">
+        <div class="accordion" id="accordionExample">
+            <table class="table table-hover border-dark table-dark">
+                <tbody class="table-group-divider">
+                    <?php
+                    if ($result->num_rows > 0) { // verifica se encontrou algum restaurante
+                        while ($row = $result->fetch_assoc()) { // percorre todos os restaurantes encontrados e exibe na tela
+                            $id_restaurante = $row['id_restaurante'];
+                    ?>
+                            <tr>
+                                <div class="d-flex justify-content-center">
+                                    <div class="card mb-5 text-bg-dark" style="--bs-bg-opacity: .4; width: 600px;">
+                                        <div class="card-header d-flex align-items-center justify-content-between" id="heading<?php echo $row["id_restaurante"]; ?>">
+                                            <div class="d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $row["id_restaurante"]; ?>" aria-expanded="true" aria-controls="collapse<?php echo $row["id_restaurante"]; ?>">
+                                                <div class="col-md-4">
+                                                    <img src="uploads/<?php echo $row["foto_restaurante"]; ?>" class="img-fluid rounded-start" alt="Foto do Restaurante" style="max-width: 100%; max-height:100px;">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3 class="mb-1 card-title"><?php echo $row["nome"]; ?></h3>
+                                                </div>
                                             </div>
-                                            <div class="col-md-8">
-                                                <h3 class="mb-1 card-title"><?php echo $row["nome"]; ?></h3>
+                                            <div class="d-flex">
+                                                <form name="formAprovar" method="POST" action="php/aprovar_restaurante.php" onsubmit="return confirmarAcao(event, 'aprovar')">
+                                                    <input type="hidden" name="id_restaurante" value="<?php echo $row["id_restaurante"]; ?>">
+                                                    <button type="submit" class="btn btn-success me-2 btn-sm">&#10004;</button>
+                                                </form>
+                                                <form name="formRejeitar" method="POST" action="php/rejeitar_restaurante.php" onsubmit="return confirmarAcao(event, 'rejeitar')">
+                                                    <input type="hidden" name="id_restaurante" value="<?php echo $row["id_restaurante"]; ?>">
+                                                    <button type="submit" class="btn btn-danger btn-sm">&#10006;</button>
+                                                </form>
                                             </div>
                                         </div>
 
-
-                                        <div class="d-flex">
-                                            <form name="formAprovar" method="POST" action="php/aprovar_restaurante.php" onsubmit="return confirmarAcao(event, 'aprovar')">
-                                                <input type="hidden" name="id_restaurante" value="<?php echo $row["id_restaurante"]; ?>">
-                                                <button type="submit" class="btn btn-success me-2 btn-sm">&#10004;</button>
-                                            </form>
-                                            <form name="formRejeitar" method="POST" action="php/rejeitar_restaurante.php" onsubmit="return confirmarAcao(event, 'rejeitar')">
-                                                <input type="hidden" name="id_restaurante" value="<?php echo $row["id_restaurante"]; ?>">
-                                                <button type="submit" class="btn btn-danger btn-sm">&#10006;</button>
-                                            </form>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div id="collapse<?php echo $row["id_restaurante"]; ?>" class="collapse" aria-labelledby="heading<?php echo $row["id_restaurante"]; ?>" data-bs-parent="#accordion">
-                                        <div class="card-body text-start">
-                                            <small class="card-text"><span class="badge text-bg-secondary rounded-pill"><?php echo $row["estilo_culinario"]; ?></span></small>
-                                            <p class="card-text mt-3"><?php echo $row["descricao"]; ?></p>
-                                            <p class="card-text text-end">Dono: <span class="fw-bold"><?php echo $row["nome_user"]; ?></span></p>
-
+                                        <div id="collapse<?php echo $row["id_restaurante"]; ?>" class="accordion-collapse collapse" aria-labelledby="heading<?php echo $row["id_restaurante"]; ?>" data-bs-parent="#accordionExample">
+                                            <div class="card-body text-start">
+                                                <small class="card-text"><span class="badge text-bg-secondary rounded-pill"><?php echo $row["estilo_culinario"]; ?></span></small>
+                                                <p class="card-text mt-3"><?php echo $row["descricao"]; ?></p>
+                                                <p class="card-text text-end">Dono: <span class="fw-bold"><?php echo $row["nome_user"]; ?></span></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-
-                        </tr>
-                <?php
+                            </tr>
+                    <?php
+                        }
+                    } else {
+                        // se não houver restaurantes aguardando aprovação
+                        echo "<tr><td colspan='4'>Nenhum restaurante aguardando aprovação</td></tr>";
                     }
-                } else {
-                    // se não houver restaurantes aguardando aprovação
-                    echo "<tr><td colspan='4'>Nenhum restaurante aguardando aprovação</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
 
     </div>
 
