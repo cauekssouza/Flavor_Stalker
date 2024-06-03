@@ -7,6 +7,11 @@
 	select {
 		font-family: 'Cormorant Garamond', serif;
 	}
+
+	.fonte-normal {
+		font-family: Arial, Helvetica, sans-serif;
+		/* ou outra fonte sem serifa */
+	}
 </style>
 
 <header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner" style="background-image: url(images/hero_1.jpeg);" data-stellar-background-ratio="0.5">
@@ -112,7 +117,7 @@
 															if ($resultMedia->num_rows > 0) {
 																$rowMedia = $resultMedia->fetch_assoc();
 																$mediaAvaliacoes = number_format($rowMedia['media'], 1);
-																echo "<span class='badge text-bg-warning rounded-pill'>&#9733; $mediaAvaliacoes</span>";
+																echo "<span class='badge text-bg-warning rounded-pill ms-2 fs-4 fonte-normal'>&#9733; $mediaAvaliacoes</span>";
 															}
 															?>
 														</small>
