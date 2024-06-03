@@ -112,7 +112,7 @@ include("includes/navbar.php");
             </div>
 
             <div id="favoritosContainer" class="border border-dark rounded col col-lg-7">
-                <p class="border-bottom border-dark">Restaurante Favoritado</p>
+
                 <?php
                 include("Conexão.php");
 
@@ -127,6 +127,7 @@ include("includes/navbar.php");
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
+                    echo '<p class="border-bottom border-dark">Restaurante Favoritado</p>';
                     while ($row = $result->fetch_assoc()) {
                 ?>
                         <div class="border border-dark mb-5" style="margin-bottom: 20px;">
