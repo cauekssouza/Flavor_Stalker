@@ -100,8 +100,8 @@ COLLATE = utf8mb4_general_ci;
 INSERT INTO restaurantes
 (nome, endereco, dono, estilo_culinario, descricao, horario, capacidade, telefone, foto_restaurante, status_restaurante_id_status)
 VALUES
-('Cantina Italiana', 'Rua das Flores, 123, Bairro Jardim', 'José Almeida', 'Italiana', 'A Cantina Italiana oferece uma experiência autêntica de culinária italiana, com uma seleção de pratos tradicionais preparados com ingredientes importados.', '12:00 - 23:00', 50, '1234-5678', "gallery_2.jpeg", 1),
-('Grill Master', 'Avenida Central, 456, Bairro Centro', 'Maria Oliveira', 'Brasileira', 'O Grill Master é o destino perfeito para os amantes de churrasco, oferecendo uma variedade de cortes de carne de alta qualidade preparados na brasa, além de acompanhamentos e sobremesas irresistíveis.', '11:00 - 22:00', 80, '9876-5432', "gallery_2.jpeg", 1);
+('Cantina Italiana', 'Rua das Flores, 123, Bairro Jardim', 'José Almeida', 'Italiana', 'A Cantina Italiana oferece uma experiência autêntica de culinária italiana, com uma seleção de pratos tradicionais preparados com ingredientes importados.', '12:00 - 23:00', 50, '1234-5678', "gallery_6.jpeg", 1),
+('Grill Master', 'Avenida Central, 456, Bairro Centro', 'Maria Oliveira', 'Brasileira', 'O Grill Master é o destino perfeito para os amantes de churrasco, oferecendo uma variedade de cortes de carne de alta qualidade preparados na brasa, além de acompanhamentos e sobremesas irresistíveis.', '11:00 - 22:00', 80, '9876-5432', "gallery_5.jpeg", 1);
 
 SELECT * FROM restaurantes;
 
@@ -149,7 +149,6 @@ COLLATE = utf8mb4_general_ci;
 		FOREIGN KEY (id_user) REFERENCES usuarios(id_user),
 		FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
 	);
-select * from nota;
 
 -- -----------------------------------------------------
 -- Avaliacao
@@ -163,37 +162,6 @@ CREATE TABLE avaliacao (
     FOREIGN KEY (id_user) REFERENCES usuarios(id_user),
     FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
 );
-/*CREATE TABLE IF NOT EXISTS avaliacao (
-  id_avaliacao INT NOT NULL AUTO_INCREMENT,
-  id_user INT NULL DEFAULT NULL,
-  id_restaurante INT NULL DEFAULT NULL,
-  id_prato INT NULL DEFAULT NULL,
-  comentario TEXT NULL DEFAULT NULL,
-  data_comentario TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  nota_id_nota INT NOT NULL,
-  PRIMARY KEY (id_avaliacao),
-  INDEX id_user (id_user),
-  INDEX id_restaurante (id_restaurante),
-  INDEX id_prato (id_prato),
-  INDEX fk_avaliacao_nota1_idx (nota_id_nota),
-  CONSTRAINT avaliacao_ibfk_1
-    FOREIGN KEY (id_user)
-    REFERENCES usuarios (id_user),
-  CONSTRAINT avaliacao_ibfk_2
-    FOREIGN KEY (id_restaurante)
-    REFERENCES restaurantes (id_restaurante),
-  CONSTRAINT avaliacao_ibfk_3
-    FOREIGN KEY (id_prato)
-    REFERENCES prato (id_prato),
-  CONSTRAINT fk_avaliacao_nota1
-    FOREIGN KEY (nota_id_nota)
-    REFERENCES nota (id_nota)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_general_ci;*/
-
 
 -- -----------------------------------------------------
 -- Tipo do restaurante
