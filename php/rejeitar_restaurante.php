@@ -12,7 +12,7 @@ if (isset($_POST['id_restaurante'])) {
     $sql = "DELETE FROM restaurantes WHERE id_restaurante = $id_restaurante";
 
     if ($conn->query($sql) === TRUE) {
-        $_SESSION['notificacao'] = "Restaurante rejeitado e excluído com sucesso!";
+        $_SESSION['notificacao'] = "Restaurante rejeitado!";
         header("Location: ../restaurantes_list.php");
     } else {
         echo "Erro ao excluir restaurante: " . $conn->error;
