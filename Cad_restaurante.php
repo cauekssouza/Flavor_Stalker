@@ -189,6 +189,7 @@ if (!isset($_SESSION['id_user'])) {
 </div>
 
 <script>
+    // ! Adiciona máscara ao input de horario
     const horarioInput = document.getElementById('horario');
 
     horarioInput.addEventListener('input', function() {
@@ -215,7 +216,7 @@ if (!isset($_SESSION['id_user'])) {
 
 
 
-
+    // ! Adiciona pratos ao cardápio
     const cardapioContainer = document.getElementById('cardapio-container');
     const addPratoButton = document.getElementById('add-prato');
     let pratoCount = 0;
@@ -224,20 +225,20 @@ if (!isset($_SESSION['id_user'])) {
         pratoCount++;
 
         const newPratoItem = `
-            <div class="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark text-white mb-0" style="--bs-bg-opacity: .4;">
-                <div class="d-flex gap-2 w-100 justify-content-between">
-                    <div>
-                        <input type="text" class="form-control prato-item prato-nome" placeholder="Nome do Prato" name="pratos[${pratoCount}][nome]" readonly>
-                        <input type="text" class="form-control prato-item prato-paragrafo" placeholder="Ingredientes" name="pratos[${pratoCount}][ingredientes]" readonly>
-                    </div>
-                    <div>
-                        <div class="prato-preco-wrapper">
-                            <input type="number" step="0.01" class="form-control prato-item prato-paragrafo prato-preco" placeholder="Preço" name="pratos[${pratoCount}][preco]" readonly>
+                <div class="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark text-white mb-0" style="--bs-bg-opacity: .4;">
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                            <input type="text" class="form-control prato-item prato-nome" placeholder="Nome do Prato" name="pratos[${pratoCount}][nome]" readonly>
+                            <input type="text" class="form-control prato-item prato-paragrafo" placeholder="Ingredientes" name="pratos[${pratoCount}][ingredientes]" readonly>
                         </div>
-                        <button type="button" class="btn btn-danger mt-1" onclick="removerPrato(this)">Remover</button>
+                        <div>
+                            <div class="prato-preco-wrapper">
+                                <input type="number" step="0.01" class="form-control prato-item prato-paragrafo prato-preco" placeholder="Preço" name="pratos[${pratoCount}][preco]" readonly>
+                            </div>
+                            <button type="button" class="btn btn-danger mt-1" onclick="removerPrato(this)">Remover</button>
+                        </div>
                     </div>
-                </div>
-            </div>`;
+                </div>`;
         cardapioContainer.insertAdjacentHTML('beforeend', newPratoItem);
     }
 
@@ -245,7 +246,31 @@ if (!isset($_SESSION['id_user'])) {
         button.parentNode.parentNode.parentNode.remove();
     }
 
-    // Event delegation para os inputs
+    function validarPratoPreenchido() {
+        const pratos = document.querySelectorAll('.list-group-item');
+        for (let i = 0; i < pratos.length; i++) {
+            const inputs = pratos[i].querySelectorAll('.prato-item');
+            for (let j = 0; j < inputs.length; j++) {
+                if (inputs[j].value.trim() === '') {
+                    inputs[j].focus();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Por favor, preencha todos os campos do prato antes de adicionar um novo.',
+                    });
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    addPratoButton.addEventListener('click', function() {
+        if (validarPratoPreenchido()) {
+            adicionarPrato();
+        }
+    });
+
     cardapioContainer.addEventListener('click', function(event) {
         const target = event.target;
         if (target.classList.contains('prato-item')) {
@@ -257,33 +282,42 @@ if (!isset($_SESSION['id_user'])) {
         }
     });
 
-    addPratoButton.addEventListener('click', adicionarPrato);
-
-    const precoInputs = document.querySelectorAll('.prato-preco');
-
-    precoInputs.forEach(input => {
-        input.addEventListener('input', function() {
-            let value = this.value.replace(/\D/g, '');
-            value = (value / 100).toFixed(2);
-            this.value = 'R$ ' + value;
-        });
-    });
-
-    const form = document.querySelector('form');
+    const form = document.getElementById('restauranteForm');
 
     form.addEventListener('submit', function(event) {
-        const pratoNomes = document.querySelectorAll('.prato-nome');
+        const pratos = document.querySelectorAll('.list-group-item');
         let pratoPreenchido = false;
 
-        pratoNomes.forEach(pratoNome => {
-            if (pratoNome.value.trim() !== '') {
-                pratoPreenchido = true;
+        pratos.forEach(prato => {
+            const inputs = prato.querySelectorAll('.prato-item');
+            inputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    pratoPreenchido = true;
+                }
+            });
+
+            // Verifica se todos os campos do prato estão preenchidos
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].value.trim() === '') {
+                    inputs[i].focus();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Por favor, preencha todos os campos de cada prato.',
+                    });
+                    event.preventDefault(); // Evita o envio do formulário
+                    return;
+                }
             }
         });
 
         if (!pratoPreenchido) {
-            alert('É necessário cadastrar pelo menos um prato no cardápio.');
             event.preventDefault(); // Evita o envio do formulário
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'É necessário cadastrar pelo menos um prato no cardápio.',
+            });
         }
     });
 </script>
