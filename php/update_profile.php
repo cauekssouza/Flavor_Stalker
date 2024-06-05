@@ -11,6 +11,16 @@ if (isset($_SESSION['id_user'])) {
     $novaSenha = $_POST['nova_senha'];
     $confirmacaoSenha = $_POST['confirmacao_senha'];
 
+    // Validação do email
+    $sqlEmailCheck = "SELECT * FROM usuarios WHERE email='$novoEmail' AND id_user != $id_user";
+    $resultEmailCheck = $conn->query($sqlEmailCheck);
+
+    if ($resultEmailCheck->num_rows > 0) {
+        $_SESSION['error'] = "Este email já está em uso por outro usuário.";
+        header("Location: ../users.php");
+        exit();
+    }
+
     // Validação da senha
     if (!empty($novaSenha)) { // Verifica se a nova senha não está vazia
         if ($novaSenha != $confirmacaoSenha) {

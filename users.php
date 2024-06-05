@@ -39,7 +39,12 @@ include("includes/navbar.php");
         $data_criacao = $_SESSION['data_criacao'];
         $senha = $_SESSION['senha'];
         ?>
-
+        <?php
+        if (isset($_SESSION["error"])) {
+            echo '<div class="alert alert-danger" role="alert">' . $_SESSION["error"] . '</div>';
+            unset($_SESSION["error"]);
+        }
+        ?>
         <div class="row gx-5">
             <div class="border border-dark rounded m-5 bg-dark text-white col-lg-4" style="--bs-bg-opacity: .5;">
                 <img src="images/default_icon.png" class="rounded-circle img-fluid p-3" width="150" height="150">
@@ -84,12 +89,7 @@ include("includes/navbar.php");
 
 
             <div class="border border-dark rounded col col-lg-7" id="editProfileForm" style="display: none;">
-                <?php
-                if (isset($_SESSION["error"])) {
-                    echo '<div class="alert alert-danger" role="alert">' . $_SESSION["error"] . '</div>';
-                    unset($_SESSION["error"]);
-                }
-                ?>
+
                 <form action="php/update_profile.php" method="POST">
                     <div class="mb-3">
                         <label for="nome_user" class="form-label">Nome</label>
