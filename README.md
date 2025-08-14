@@ -8,6 +8,6 @@
 - MYSQL
 - Boostrap
 
-#É um site para Divulgar estabelecimentos
+É um site para Divulgar estabelecimentos
 gastronômicos. Fornecer uma boa experiência gastronômica para os turistas da nossa cidade, Dar visibilidade e promover pequenos estabelecimentos de qualidade não estão nos holofotes e Incentivar feedback dos clientes, permitindo que os donos dos restaurantes possam usar as informações
 para melhorar o próprio negocio.
